@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zhiding.norm.mapper.ToolsModuleMapper">
+  <resultMap id="BaseResultMap" type="cn.com.zhiding.norm.entity.ToolsModule">
+    <id column="tm_id" jdbcType="BIGINT" property="tmId" />
+    <result column="module_id" jdbcType="BIGINT" property="moduleId" />
+    <result column="tool_id" jdbcType="BIGINT" property="toolId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tm_id, module_id, tool_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_tools_module
+    where tm_id = #{tmId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from s_tools_module
+    where tm_id = #{tmId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.zhiding.norm.entity.ToolsModule">
+    <selectKey keyProperty="tmId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_tools_module (module_id, tool_id)
+    values (#{moduleId,jdbcType=BIGINT}, #{toolId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.zhiding.norm.entity.ToolsModule">
+    <selectKey keyProperty="tmId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_tools_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        module_id,
+      </if>
+      <if test="toolId != null">
+        tool_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        #{moduleId,jdbcType=BIGINT},
+      </if>
+      <if test="toolId != null">
+        #{toolId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.zhiding.norm.entity.ToolsModule">
+    update s_tools_module
+    <set>
+      <if test="moduleId != null">
+        module_id = #{moduleId,jdbcType=BIGINT},
+      </if>
+      <if test="toolId != null">
+        tool_id = #{toolId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where tm_id = #{tmId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.zhiding.norm.entity.ToolsModule">
+    update s_tools_module
+    set module_id = #{moduleId,jdbcType=BIGINT},
+      tool_id = #{toolId,jdbcType=BIGINT}
+    where tm_id = #{tmId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-4.1.xsd"
+       default-lazy-init="false">
+
+	<!-- 启动注解，注册服务，如验证框架、全局类型转换器-->
+	<mvc:annotation-driven />
+
+	<bean
+        class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">  
+        <property name="messageConverters">  
+            <list>  
+                <ref bean="mappingJacksonHttpMessageConverter" />  
+            </list>  
+        </property>  
+    </bean>  
+    <bean id="mappingJacksonHttpMessageConverter"  
+        class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />  
+	
+	<!-- 启动自动扫描 -->
+	<context:component-scan base-package="cn.com.zhiding" >
+	<!-- 制定扫包规则 ,只扫描使用@Controller注解的JAVA类 -->
+
+	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+
+
+	</context:component-scan>
+	<!-- 静态资源 -->
+	<mvc:default-servlet-handler/> 
+	<mvc:resources location="/WEB-INF/static/js/" mapping="/js/**"/>
+	<mvc:resources location="/WEB-INF/static/css/" mapping="/css/**"/>
+	<mvc:resources location="/WEB-INF/static/fonts/" mapping="/fonts/**"/>
+	<mvc:resources location="/WEB-INF/static/img/" mapping="/img/**"/>
+	<mvc:resources location="/WEB-INF/static/themes/" mapping="/themes/**"/>
+ 
+	<!-- 配置视图解析器 -->
+    <!--
+   	prefix和suffix：查找视图页面的前缀和后缀（前缀[逻辑视图名]后缀），
+   	比如传进来的逻辑视图名为WEB-INF/jsp/hello，则该该jsp视图页面应该存放在“WEB-INF/jsp/hello.jsp”； -->
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+		<property name="prefix" value="/WEB-INF/views/"></property> <!-- 视图放在WebRoot下的views -->
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	<!-- 定义文件上传解析器 -->
+	<bean id="multipartResolver"
+		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设定默认编码 -->
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<!-- 设定文件上传的最大值8MB，8*1024*1024 -->
+		<property name="maxUploadSize" value="8388608"></property>
+	</bean>
+
+	<!-- 启用注解驱动的定时任务 -->
+	<task:annotation-driven scheduler="myScheduler" />
+	<!-- 定时任务线程池 -->
+	<task:scheduler id="myScheduler" pool-size="10"/>
+
+	<bean id="myTask" class="cn.com.zhiding.user.service.impl.SentEmailImpl" />
+	<task:scheduled-tasks>
+        <!--<task:scheduled ref="myTask" method="sEmail" cron="0/2 * * * * ?" />-->
+        <task:scheduled ref="myTask" method="sEmail" cron="0 0/5 * * * ?" />
+	</task:scheduled-tasks>
+
+</beans>

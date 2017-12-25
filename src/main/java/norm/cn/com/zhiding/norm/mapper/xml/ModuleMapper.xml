@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zhiding.norm.mapper.ModuleMapper">
+  <resultMap id="BaseResultMap" type="cn.com.zhiding.norm.entity.Module">
+    <id column="module_id" jdbcType="BIGINT" property="moduleId" />
+    <result column="moduleName" jdbcType="VARCHAR" property="modulename" />
+    <result column="moduleInternalName" jdbcType="VARCHAR" property="moduleinternalname" />
+    <result column="moduleType" jdbcType="VARCHAR" property="moduletype" />
+    <result column="reportType_id" jdbcType="BIGINT" property="reporttypeId" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="modifyDate" jdbcType="TIMESTAMP" property="modifydate" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="module_oldid" jdbcType="BIGINT" property="moduleOldid" />
+    <result column="tool_oldtype" jdbcType="BIGINT" property="toolOldtype" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.zhiding.norm.entity.Module">
+    <result column="moduleDesc" jdbcType="LONGVARCHAR" property="moduledesc" />
+  </resultMap>
+  <!-- 工具维度ResultMap -->
+  <resultMap extends="BaseResultMap" id="ToolsModuleResultMap" type="cn.com.zhiding.norm.entity.Module">
+  	<association property="tm" javaType="cn.com.zhiding.norm.entity.ToolsModule">
+	  	<id column="tm_id" jdbcType="BIGINT" property="tmId" />
+	    <result column="moduleTm_id" jdbcType="BIGINT" property="moduleId" />
+	    <result column="tool_id" jdbcType="BIGINT" property="toolId" />
+  	</association>
+  </resultMap>
+  <!-- 方案维度ResultMap -->
+  <resultMap extends="BaseResultMap" type="cn.com.zhiding.norm.entity.Module" id="SolutionsModuleResultMap">
+  	<association property="sm" javaType="cn.com.zhiding.norm.entity.SolutionsModule">
+	  	<id column="sm_id" jdbcType="BIGINT" property="smId" />
+	    <result column="moduleSm_id" jdbcType="BIGINT" property="moduleId" />
+	    <result column="solution_id" jdbcType="BIGINT" property="solutionId" />
+  	</association>
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    module_id, moduleName, moduleInternalName, moduleType, reportType_id, createDate, 
+    modifyDate, status, module_oldid, tool_oldtype
+  </sql>
+  <sql id="Blob_Column_List">
+    moduleDesc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from s_zhiding_module
+    where module_id = #{moduleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from s_zhiding_module
+    where module_id = #{moduleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.zhiding.norm.entity.Module">
+    <selectKey keyProperty="moduleId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_zhiding_module (moduleName, moduleInternalName, moduleType, 
+      reportType_id, createDate, modifyDate, 
+      status, module_oldid, tool_oldtype, 
+      moduleDesc)
+    values (#{modulename,jdbcType=VARCHAR}, #{moduleinternalname,jdbcType=VARCHAR}, #{moduletype,jdbcType=VARCHAR}, 
+      #{reporttypeId,jdbcType=BIGINT}, #{createdate,jdbcType=TIMESTAMP}, #{modifydate,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{moduleOldid,jdbcType=BIGINT}, #{toolOldtype,jdbcType=BIGINT}, 
+      #{moduledesc,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.zhiding.norm.entity.Module">
+    <selectKey keyProperty="moduleId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_zhiding_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="modulename != null">
+        moduleName,
+      </if>
+      <if test="moduleinternalname != null">
+        moduleInternalName,
+      </if>
+      <if test="moduletype != null">
+        moduleType,
+      </if>
+      <if test="reporttypeId != null">
+        reportType_id,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="modifydate != null">
+        modifyDate,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="moduleOldid != null">
+        module_oldid,
+      </if>
+      <if test="toolOldtype != null">
+        tool_oldtype,
+      </if>
+      <if test="moduledesc != null">
+        moduleDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="modulename != null">
+        #{modulename,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleinternalname != null">
+        #{moduleinternalname,jdbcType=VARCHAR},
+      </if>
+      <if test="moduletype != null">
+        #{moduletype,jdbcType=VARCHAR},
+      </if>
+      <if test="reporttypeId != null">
+        #{reporttypeId,jdbcType=BIGINT},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null">
+        #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleOldid != null">
+        #{moduleOldid,jdbcType=BIGINT},
+      </if>
+      <if test="toolOldtype != null">
+        #{toolOldtype,jdbcType=BIGINT},
+      </if>
+      <if test="moduledesc != null">
+        #{moduledesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.zhiding.norm.entity.Module">
+    update s_zhiding_module
+    <set>
+      <if test="modulename != null">
+        moduleName = #{modulename,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleinternalname != null">
+        moduleInternalName = #{moduleinternalname,jdbcType=VARCHAR},
+      </if>
+      <if test="moduletype != null">
+        moduleType = #{moduletype,jdbcType=VARCHAR},
+      </if>
+      <if test="reporttypeId != null">
+        reportType_id = #{reporttypeId,jdbcType=BIGINT},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null">
+        modifyDate = #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleOldid != null">
+        module_oldid = #{moduleOldid,jdbcType=BIGINT},
+      </if>
+      <if test="toolOldtype != null">
+        tool_oldtype = #{toolOldtype,jdbcType=BIGINT},
+      </if>
+      <if test="moduledesc != null">
+        moduleDesc = #{moduledesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where module_id = #{moduleId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.com.zhiding.norm.entity.Module">
+    update s_zhiding_module
+    set moduleName = #{modulename,jdbcType=VARCHAR},
+      moduleInternalName = #{moduleinternalname,jdbcType=VARCHAR},
+      moduleType = #{moduletype,jdbcType=VARCHAR},
+      reportType_id = #{reporttypeId,jdbcType=BIGINT},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      modifyDate = #{modifydate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      module_oldid = #{moduleOldid,jdbcType=BIGINT},
+      tool_oldtype = #{toolOldtype,jdbcType=BIGINT},
+      moduleDesc = #{moduledesc,jdbcType=LONGVARCHAR}
+    where module_id = #{moduleId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.zhiding.norm.entity.Module">
+    update s_zhiding_module
+    set moduleName = #{modulename,jdbcType=VARCHAR},
+      moduleInternalName = #{moduleinternalname,jdbcType=VARCHAR},
+      moduleType = #{moduletype,jdbcType=VARCHAR},
+      reportType_id = #{reporttypeId,jdbcType=BIGINT},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      modifyDate = #{modifydate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      module_oldid = #{moduleOldid,jdbcType=BIGINT},
+      tool_oldtype = #{toolOldtype,jdbcType=BIGINT}
+    where module_id = #{moduleId,jdbcType=BIGINT}
+  </update>
+  <!-- 查询工具对应的维度 -->
+  <select id="queryTModulesByPro"  resultMap="ToolsModuleResultMap">
+  	select DISTINCT sz.module_id,sz.moduleName,sz.moduleType,st.module_id as moduleTm_id 
+  	from s_zhiding_module sz,s_tools_module st
+  	where sz.module_id = st.module_id
+  	and sz.status = 0
+  	and st.tool_id in 
+  	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+  		#{item}  
+ 	</foreach> 
+  </select>
+ 
+    <!-- 查询方案对应的维度 -->
+  <select id="querySModulesByPro"  resultMap="SolutionsModuleResultMap">
+  	select DISTINCT sz.module_id,sz.moduleName,sz.moduleType,ss.module_id as moduleSm_id 
+  	from s_zhiding_module sz,s_solution_module ss
+  	where sz.module_id = ss.module_id
+  	and sz.status = 0
+  	and ss.solution_id in 
+  	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+  		#{item}  
+ 	</foreach> 
+  </select>
+  
+  <!-- 查询某产品下面的所有维度级别 -->
+  <select id="queryModTypeOfPro" resultType="java.lang.String">
+  	SELECT moduleType FROM s_zhiding_module
+	WHERE moduleType IS NOT NULL 
+	AND module_id IN
+	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+  		#{item}  
+ 	</foreach> 
+ 	AND moduleType &lt;&gt; "1"
+ 	AND status = 0
+	GROUP BY moduleType
+	ORDER BY moduleType
+  </select>
+  
+  <!-- 在维度id集合中筛选出指定类型的维度id -->
+  <select id="queryModByType" resultType="java.lang.Long">
+  	SELECT module_id FROM s_zhiding_module 
+	WHERE module_id IN
+	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+  		#{item}  
+ 	</foreach> 
+	AND moduleType = #{moduleType}
+	AND status = 0
+  </select>
+  
+  <!-- 查询方案对应的工具下的维度 -->
+  <select id="querySolMod" resultMap="BaseResultMap">
+  SELECT 
+  	szm.*
+  	FROM s_tools_module stm,s_zhiding_module szm
+	WHERE szm.module_id = stm.module_id
+	AND szm.status = 0
+	AND stm.tool_id IN
+	(
+	SELECT tool_id FROM solutions_tools
+	WHERE solutions_id IN
+	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+  		#{item}  
+ 	</foreach> 
+	)
+  </select>
+  
+  <select id="quertModulesByTool" resultMap="ToolsModuleResultMap">
+  	select DISTINCT sz.module_id,sz.moduleName,sz.moduleType,st.module_id as moduleTm_id 
+  	from s_zhiding_module sz,s_tools_module st
+  	where sz.module_id = st.module_id
+  	and sz.status = 0
+  	and st.tool_id = #{0} 
+  </select>
+</mapper>

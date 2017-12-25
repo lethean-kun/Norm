@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zhiding.norm.mapper.NormDetailedMapper">
+  <resultMap id="BaseResultMap" type="cn.com.zhiding.norm.entity.NormDetailed">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="module_id" jdbcType="BIGINT" property="moduleId" />
+    <result column="average" jdbcType="DECIMAL" property="average" />
+    <result column="standard_score" jdbcType="DECIMAL" property="standardScore" />
+    <result column="norm_id" jdbcType="BIGINT" property="normId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, module_id, average, standard_score, norm_id, create_date, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_norm_detailed
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_norm_detailed
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.zhiding.norm.entity.NormDetailed">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_norm_detailed (module_id, average, standard_score, 
+      norm_id, create_date, status
+      )
+    values (#{moduleId,jdbcType=BIGINT}, #{average,jdbcType=DECIMAL}, #{standardScore,jdbcType=DECIMAL}, 
+      #{normId,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.zhiding.norm.entity.NormDetailed">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_norm_detailed
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        module_id,
+      </if>
+      <if test="average != null">
+        average,
+      </if>
+      <if test="standardScore != null">
+        standard_score,
+      </if>
+      <if test="normId != null">
+        norm_id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        #{moduleId,jdbcType=BIGINT},
+      </if>
+      <if test="average != null">
+        #{average,jdbcType=DECIMAL},
+      </if>
+      <if test="standardScore != null">
+        #{standardScore,jdbcType=DECIMAL},
+      </if>
+      <if test="normId != null">
+        #{normId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.zhiding.norm.entity.NormDetailed">
+    update t_norm_detailed
+    <set>
+      <if test="moduleId != null">
+        module_id = #{moduleId,jdbcType=BIGINT},
+      </if>
+      <if test="average != null">
+        average = #{average,jdbcType=DECIMAL},
+      </if>
+      <if test="standardScore != null">
+        standard_score = #{standardScore,jdbcType=DECIMAL},
+      </if>
+      <if test="normId != null">
+        norm_id = #{normId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.zhiding.norm.entity.NormDetailed">
+    update t_norm_detailed
+    set module_id = #{moduleId,jdbcType=BIGINT},
+      average = #{average,jdbcType=DECIMAL},
+      standard_score = #{standardScore,jdbcType=DECIMAL},
+      norm_id = #{normId,jdbcType=BIGINT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 根据常模id查询常模明细 -->
+  <select id="queryNormDetailedByNormId" resultMap="BaseResultMap">
+  	select * from t_norm_detailed where norm_id = #{0} 
+  </select>
+</mapper>

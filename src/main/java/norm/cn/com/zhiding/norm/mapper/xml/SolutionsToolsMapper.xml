@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zhiding.norm.mapper.SolutionsToolsMapper">
+  <resultMap id="BaseResultMap" type="cn.com.zhiding.norm.entity.SolutionsTools">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="solutions_id" jdbcType="BIGINT" property="solutionsId" />
+    <result column="tool_id" jdbcType="BIGINT" property="toolId" />
+    <result column="tools_norm_id" jdbcType="BIGINT" property="toolsNormId" />
+    <result column="is_solutions" jdbcType="INTEGER" property="isSolutions" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="sort_num" jdbcType="INTEGER" property="sortNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, solutions_id, tool_id, tools_norm_id, is_solutions, is_del, sort_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from solutions_tools
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from solutions_tools
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.zhiding.norm.entity.SolutionsTools">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into solutions_tools (solutions_id, tool_id, tools_norm_id, 
+      is_solutions, is_del, sort_num
+      )
+    values (#{solutionsId,jdbcType=BIGINT}, #{toolId,jdbcType=BIGINT}, #{toolsNormId,jdbcType=BIGINT}, 
+      #{isSolutions,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{sortNum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.zhiding.norm.entity.SolutionsTools">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into solutions_tools
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="solutionsId != null">
+        solutions_id,
+      </if>
+      <if test="toolId != null">
+        tool_id,
+      </if>
+      <if test="toolsNormId != null">
+        tools_norm_id,
+      </if>
+      <if test="isSolutions != null">
+        is_solutions,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="sortNum != null">
+        sort_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="solutionsId != null">
+        #{solutionsId,jdbcType=BIGINT},
+      </if>
+      <if test="toolId != null">
+        #{toolId,jdbcType=BIGINT},
+      </if>
+      <if test="toolsNormId != null">
+        #{toolsNormId,jdbcType=BIGINT},
+      </if>
+      <if test="isSolutions != null">
+        #{isSolutions,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="sortNum != null">
+        #{sortNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.zhiding.norm.entity.SolutionsTools">
+    update solutions_tools
+    <set>
+      <if test="solutionsId != null">
+        solutions_id = #{solutionsId,jdbcType=BIGINT},
+      </if>
+      <if test="toolId != null">
+        tool_id = #{toolId,jdbcType=BIGINT},
+      </if>
+      <if test="toolsNormId != null">
+        tools_norm_id = #{toolsNormId,jdbcType=BIGINT},
+      </if>
+      <if test="isSolutions != null">
+        is_solutions = #{isSolutions,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="sortNum != null">
+        sort_num = #{sortNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.zhiding.norm.entity.SolutionsTools">
+    update solutions_tools
+    set solutions_id = #{solutionsId,jdbcType=BIGINT},
+      tool_id = #{toolId,jdbcType=BIGINT},
+      tools_norm_id = #{toolsNormId,jdbcType=BIGINT},
+      is_solutions = #{isSolutions,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER},
+      sort_num = #{sortNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="queryBySolutionId" resultMap="BaseResultMap">
+  	SELECT * FROM solutions_tools WHERE is_del = 0 AND solution_id IN
+  	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+  		#{item}  
+ 	</foreach> 
+  </select>
+</mapper>

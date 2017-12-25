@@ -1,0 +1,54 @@
+package cn.com.zhiding.user.service.impl;
+
+import cn.com.zhiding.norm.entity.Norm;
+import cn.com.zhiding.norm.mapper.NormMapper;
+import cn.com.zhiding.user.entity.SZhidingEmail;
+import cn.com.zhiding.user.service.SentEmail;
+import cn.com.zhiding.util.Email;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
+
+@Service
+@Component
+public class SentEmailImpl implements SentEmail {
+
+    @Resource
+    private NormMapper normMapper;
+
+    private static Logger log = Logger.getLogger(SentEmailImpl.class);
+
+//    @Scheduled(cron = "0/1 0 * * * ?")
+    @Override
+    public void sEmail() {
+        List<Norm> normList = normMapper.getNeedSent();
+        log.info("待发送邮件人数为："+normList.size());
+        for(Norm n:normList){
+            SZhidingEmail sZhidingEmail = new SZhidingEmail();
+            sZhidingEmail.setEmailAddr(n.getUser().getEmail());
+            sZhidingEmail.setCrtDt(new Date());
+            sZhidingEmail.setStatus("0");
+            sZhidingEmail.setEmailFrom("<rencaiguan@zhiding.com.cn>");
+            sZhidingEmail.setSendAccount("rencaiguan@zhiding.com.cn");
+            sZhidingEmail.setSendEmail("mail.zhiding.com.cn");
+            sZhidingEmail.setSendPassword("ZhiDing2016YouYuan!");
+            sZhidingEmail.setSendEmailTitle("常模计算结果通知");
+            sZhidingEmail.setSendWay("zd");
+            if(n.getStatus().equals(2)){
+                sZhidingEmail.setSendContent(n.getUser().getName()+"您好！您计算的常模数据，已计算完成！请注意及时查看！");
+            }else {
+                sZhidingEmail.setSendContent(n.getUser().getName()+"您好！您计算的常模数据，计算失败！请注意及时查看！");
+            }
+            System.out.println(n.getUser().getName());
+            if(Email.InsertEmailAndMessage(sZhidingEmail)) {
+                n.setIsSend(2);
+                normMapper.updateByPrimaryKeySelective(n);
+            }
+        }
+
+    }
+}

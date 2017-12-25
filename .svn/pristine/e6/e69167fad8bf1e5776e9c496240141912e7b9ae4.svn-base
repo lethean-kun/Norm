@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zhiding.norm.mapper.ExamAdvanceResultMapper">
+  <resultMap id="BaseResultMap" type="cn.com.zhiding.norm.entity.ExamAdvanceResult">
+    <id column="ar_result_id" jdbcType="BIGINT" property="arResultId" />
+    <result column="activityPerson_id" jdbcType="BIGINT" property="activitypersonId" />
+    <result column="tool_id" jdbcType="BIGINT" property="toolId" />
+    <result column="solution_id" jdbcType="BIGINT" property="solutionId" />
+    <result column="module_id" jdbcType="BIGINT" property="moduleId" />
+    <result column="moduleName" jdbcType="VARCHAR" property="modulename" />
+    <result column="z_mark" jdbcType="DOUBLE" property="zMark" />
+    <result column="t_mark" jdbcType="DOUBLE" property="tMark" />
+    <result column="p_mark" jdbcType="DOUBLE" property="pMark" />
+    <result column="p_modified" jdbcType="DOUBLE" property="pModified" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="ComprehensiveScore" jdbcType="DOUBLE" property="comprehensivescore" />
+    <result column="z_avgMark" jdbcType="DOUBLE" property="zAvgmark" />
+    <result column="z_totalMark" jdbcType="DOUBLE" property="zTotalmark" />
+    <result column="t_totalMark" jdbcType="DOUBLE" property="tTotalmark" />
+    <result column="p_totalMark" jdbcType="DOUBLE" property="pTotalmark" />
+    <result column="Recommendation" jdbcType="VARCHAR" property="recommendation" />
+    <result column="moduleType" jdbcType="VARCHAR" property="moduletype" />
+    <result column="JobMatching" jdbcType="VARCHAR" property="jobmatching" />
+    <result column="totalMark" jdbcType="DOUBLE" property="totalmark" />
+    <result column="t_avgMark" jdbcType="DOUBLE" property="tAvgmark" />
+    <result column="mark" jdbcType="DOUBLE" property="mark" />
+    <result column="tenPoint" jdbcType="INTEGER" property="tenpoint" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ar_result_id, activityPerson_id, tool_id, solution_id, module_id, moduleName, z_mark, 
+    t_mark, p_mark, p_modified, level, ComprehensiveScore, z_avgMark, z_totalMark, t_totalMark, 
+    p_totalMark, Recommendation, moduleType, JobMatching, totalMark, t_avgMark, mark, 
+    tenPoint
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_exam_advance_result
+    where ar_result_id = #{arResultId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from s_exam_advance_result
+    where ar_result_id = #{arResultId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.zhiding.norm.entity.ExamAdvanceResult">
+    <selectKey keyProperty="arResultId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_exam_advance_result (activityPerson_id, tool_id, solution_id, 
+      module_id, moduleName, z_mark, 
+      t_mark, p_mark, p_modified, 
+      level, ComprehensiveScore, z_avgMark, 
+      z_totalMark, t_totalMark, p_totalMark, 
+      Recommendation, moduleType, JobMatching, 
+      totalMark, t_avgMark, mark, 
+      tenPoint)
+    values (#{activitypersonId,jdbcType=BIGINT}, #{toolId,jdbcType=BIGINT}, #{solutionId,jdbcType=BIGINT}, 
+      #{moduleId,jdbcType=BIGINT}, #{modulename,jdbcType=VARCHAR}, #{zMark,jdbcType=DOUBLE}, 
+      #{tMark,jdbcType=DOUBLE}, #{pMark,jdbcType=DOUBLE}, #{pModified,jdbcType=DOUBLE}, 
+      #{level,jdbcType=VARCHAR}, #{comprehensivescore,jdbcType=DOUBLE}, #{zAvgmark,jdbcType=DOUBLE}, 
+      #{zTotalmark,jdbcType=DOUBLE}, #{tTotalmark,jdbcType=DOUBLE}, #{pTotalmark,jdbcType=DOUBLE}, 
+      #{recommendation,jdbcType=VARCHAR}, #{moduletype,jdbcType=VARCHAR}, #{jobmatching,jdbcType=VARCHAR}, 
+      #{totalmark,jdbcType=DOUBLE}, #{tAvgmark,jdbcType=DOUBLE}, #{mark,jdbcType=DOUBLE}, 
+      #{tenpoint,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.zhiding.norm.entity.ExamAdvanceResult">
+    <selectKey keyProperty="arResultId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_exam_advance_result
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activitypersonId != null">
+        activityPerson_id,
+      </if>
+      <if test="toolId != null">
+        tool_id,
+      </if>
+      <if test="solutionId != null">
+        solution_id,
+      </if>
+      <if test="moduleId != null">
+        module_id,
+      </if>
+      <if test="modulename != null">
+        moduleName,
+      </if>
+      <if test="zMark != null">
+        z_mark,
+      </if>
+      <if test="tMark != null">
+        t_mark,
+      </if>
+      <if test="pMark != null">
+        p_mark,
+      </if>
+      <if test="pModified != null">
+        p_modified,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="comprehensivescore != null">
+        ComprehensiveScore,
+      </if>
+      <if test="zAvgmark != null">
+        z_avgMark,
+      </if>
+      <if test="zTotalmark != null">
+        z_totalMark,
+      </if>
+      <if test="tTotalmark != null">
+        t_totalMark,
+      </if>
+      <if test="pTotalmark != null">
+        p_totalMark,
+      </if>
+      <if test="recommendation != null">
+        Recommendation,
+      </if>
+      <if test="moduletype != null">
+        moduleType,
+      </if>
+      <if test="jobmatching != null">
+        JobMatching,
+      </if>
+      <if test="totalmark != null">
+        totalMark,
+      </if>
+      <if test="tAvgmark != null">
+        t_avgMark,
+      </if>
+      <if test="mark != null">
+        mark,
+      </if>
+      <if test="tenpoint != null">
+        tenPoint,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activitypersonId != null">
+        #{activitypersonId,jdbcType=BIGINT},
+      </if>
+      <if test="toolId != null">
+        #{toolId,jdbcType=BIGINT},
+      </if>
+      <if test="solutionId != null">
+        #{solutionId,jdbcType=BIGINT},
+      </if>
+      <if test="moduleId != null">
+        #{moduleId,jdbcType=BIGINT},
+      </if>
+      <if test="modulename != null">
+        #{modulename,jdbcType=VARCHAR},
+      </if>
+      <if test="zMark != null">
+        #{zMark,jdbcType=DOUBLE},
+      </if>
+      <if test="tMark != null">
+        #{tMark,jdbcType=DOUBLE},
+      </if>
+      <if test="pMark != null">
+        #{pMark,jdbcType=DOUBLE},
+      </if>
+      <if test="pModified != null">
+        #{pModified,jdbcType=DOUBLE},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="comprehensivescore != null">
+        #{comprehensivescore,jdbcType=DOUBLE},
+      </if>
+      <if test="zAvgmark != null">
+        #{zAvgmark,jdbcType=DOUBLE},
+      </if>
+      <if test="zTotalmark != null">
+        #{zTotalmark,jdbcType=DOUBLE},
+      </if>
+      <if test="tTotalmark != null">
+        #{tTotalmark,jdbcType=DOUBLE},
+      </if>
+      <if test="pTotalmark != null">
+        #{pTotalmark,jdbcType=DOUBLE},
+      </if>
+      <if test="recommendation != null">
+        #{recommendation,jdbcType=VARCHAR},
+      </if>
+      <if test="moduletype != null">
+        #{moduletype,jdbcType=VARCHAR},
+      </if>
+      <if test="jobmatching != null">
+        #{jobmatching,jdbcType=VARCHAR},
+      </if>
+      <if test="totalmark != null">
+        #{totalmark,jdbcType=DOUBLE},
+      </if>
+      <if test="tAvgmark != null">
+        #{tAvgmark,jdbcType=DOUBLE},
+      </if>
+      <if test="mark != null">
+        #{mark,jdbcType=DOUBLE},
+      </if>
+      <if test="tenpoint != null">
+        #{tenpoint,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.zhiding.norm.entity.ExamAdvanceResult">
+    update s_exam_advance_result
+    <set>
+      <if test="activitypersonId != null">
+        activityPerson_id = #{activitypersonId,jdbcType=BIGINT},
+      </if>
+      <if test="toolId != null">
+        tool_id = #{toolId,jdbcType=BIGINT},
+      </if>
+      <if test="solutionId != null">
+        solution_id = #{solutionId,jdbcType=BIGINT},
+      </if>
+      <if test="moduleId != null">
+        module_id = #{moduleId,jdbcType=BIGINT},
+      </if>
+      <if test="modulename != null">
+        moduleName = #{modulename,jdbcType=VARCHAR},
+      </if>
+      <if test="zMark != null">
+        z_mark = #{zMark,jdbcType=DOUBLE},
+      </if>
+      <if test="tMark != null">
+        t_mark = #{tMark,jdbcType=DOUBLE},
+      </if>
+      <if test="pMark != null">
+        p_mark = #{pMark,jdbcType=DOUBLE},
+      </if>
+      <if test="pModified != null">
+        p_modified = #{pModified,jdbcType=DOUBLE},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="comprehensivescore != null">
+        ComprehensiveScore = #{comprehensivescore,jdbcType=DOUBLE},
+      </if>
+      <if test="zAvgmark != null">
+        z_avgMark = #{zAvgmark,jdbcType=DOUBLE},
+      </if>
+      <if test="zTotalmark != null">
+        z_totalMark = #{zTotalmark,jdbcType=DOUBLE},
+      </if>
+      <if test="tTotalmark != null">
+        t_totalMark = #{tTotalmark,jdbcType=DOUBLE},
+      </if>
+      <if test="pTotalmark != null">
+        p_totalMark = #{pTotalmark,jdbcType=DOUBLE},
+      </if>
+      <if test="recommendation != null">
+        Recommendation = #{recommendation,jdbcType=VARCHAR},
+      </if>
+      <if test="moduletype != null">
+        moduleType = #{moduletype,jdbcType=VARCHAR},
+      </if>
+      <if test="jobmatching != null">
+        JobMatching = #{jobmatching,jdbcType=VARCHAR},
+      </if>
+      <if test="totalmark != null">
+        totalMark = #{totalmark,jdbcType=DOUBLE},
+      </if>
+      <if test="tAvgmark != null">
+        t_avgMark = #{tAvgmark,jdbcType=DOUBLE},
+      </if>
+      <if test="mark != null">
+        mark = #{mark,jdbcType=DOUBLE},
+      </if>
+      <if test="tenpoint != null">
+        tenPoint = #{tenpoint,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ar_result_id = #{arResultId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.zhiding.norm.entity.ExamAdvanceResult">
+    update s_exam_advance_result
+    set activityPerson_id = #{activitypersonId,jdbcType=BIGINT},
+      tool_id = #{toolId,jdbcType=BIGINT},
+      solution_id = #{solutionId,jdbcType=BIGINT},
+      module_id = #{moduleId,jdbcType=BIGINT},
+      moduleName = #{modulename,jdbcType=VARCHAR},
+      z_mark = #{zMark,jdbcType=DOUBLE},
+      t_mark = #{tMark,jdbcType=DOUBLE},
+      p_mark = #{pMark,jdbcType=DOUBLE},
+      p_modified = #{pModified,jdbcType=DOUBLE},
+      level = #{level,jdbcType=VARCHAR},
+      ComprehensiveScore = #{comprehensivescore,jdbcType=DOUBLE},
+      z_avgMark = #{zAvgmark,jdbcType=DOUBLE},
+      z_totalMark = #{zTotalmark,jdbcType=DOUBLE},
+      t_totalMark = #{tTotalmark,jdbcType=DOUBLE},
+      p_totalMark = #{pTotalmark,jdbcType=DOUBLE},
+      Recommendation = #{recommendation,jdbcType=VARCHAR},
+      moduleType = #{moduletype,jdbcType=VARCHAR},
+      JobMatching = #{jobmatching,jdbcType=VARCHAR},
+      totalMark = #{totalmark,jdbcType=DOUBLE},
+      t_avgMark = #{tAvgmark,jdbcType=DOUBLE},
+      mark = #{mark,jdbcType=DOUBLE},
+      tenPoint = #{tenpoint,jdbcType=INTEGER}
+    where ar_result_id = #{arResultId,jdbcType=BIGINT}
+  </update>
+  <!-- 获取测评人高阶维度的分数 -->
+   <select id="findExamResultByApIdAHMid" parameterType="java.lang.Long" resultType="java.lang.Double">
+  	select mark from s_exam_result where module_id = #{moduleId} and activityPerson_id = #{activitypersonId}
+  </select>
+</mapper>

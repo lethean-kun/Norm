@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zhiding.norm.mapper.ToolsMapper">
+  <resultMap id="BaseResultMap" type="cn.com.zhiding.norm.entity.Tools">
+    <id column="tool_id" jdbcType="BIGINT" property="toolId" />
+    <result column="toolCode" jdbcType="VARCHAR" property="toolcode" />
+    <result column="toolName" jdbcType="VARCHAR" property="toolname" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="examTime" jdbcType="INTEGER" property="examtime" />
+    <result column="planScore" jdbcType="DOUBLE" property="planscore" />
+    <result column="toolType" jdbcType="VARCHAR" property="tooltype" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="modifyDate" jdbcType="TIMESTAMP" property="modifydate" />
+    <result column="questionCount" jdbcType="INTEGER" property="questioncount" />
+    <result column="toolDifficult" jdbcType="VARCHAR" property="tooldifficult" />
+    <result column="isRandom" jdbcType="VARCHAR" property="israndom" />
+    <result column="isParaller" jdbcType="VARCHAR" property="isparaller" />
+    <result column="answerRate" jdbcType="DOUBLE" property="answerrate" />
+    <result column="answerMiniTime" jdbcType="INTEGER" property="answerminitime" />
+    <result column="optionRate" jdbcType="DOUBLE" property="optionrate" />
+    <result column="polygraphMark" jdbcType="DOUBLE" property="polygraphmark" />
+    <result column="reportType_id" jdbcType="BIGINT" property="reporttypeId" />
+    <result column="toolImage" jdbcType="VARCHAR" property="toolimage" />
+    <result column="foreign_name" jdbcType="VARCHAR" property="foreignName" />
+    <result column="product_price" jdbcType="DOUBLE" property="productPrice" />
+    <result column="descUrl" jdbcType="VARCHAR" property="descurl" />
+    <result column="category" jdbcType="INTEGER" property="category" />
+    <result column="producttype_id" jdbcType="BIGINT" property="producttypeId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.zhiding.norm.entity.ToolsWithBLOBs">
+    <result column="toolDesc" jdbcType="LONGVARCHAR" property="tooldesc" />
+    <result column="toolIntro" jdbcType="LONGVARCHAR" property="toolintro" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tool_id, toolCode, toolName, status, examTime, planScore, toolType, createDate, modifyDate, 
+    questionCount, toolDifficult, isRandom, isParaller, answerRate, answerMiniTime, optionRate, 
+    polygraphMark, reportType_id, toolImage, foreign_name, product_price, descUrl, category, 
+    producttype_id
+  </sql>
+  <sql id="Blob_Column_List">
+    toolDesc, toolIntro
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from s_zhiding_tools
+    where tool_id = #{toolId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from s_zhiding_tools
+    where tool_id = #{toolId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.zhiding.norm.entity.ToolsWithBLOBs">
+    <selectKey keyProperty="toolId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_zhiding_tools (toolCode, toolName, status, 
+      examTime, planScore, toolType, 
+      createDate, modifyDate, questionCount, 
+      toolDifficult, isRandom, isParaller, 
+      answerRate, answerMiniTime, optionRate, 
+      polygraphMark, reportType_id, toolImage, 
+      foreign_name, product_price, descUrl, 
+      category, producttype_id, toolDesc, 
+      toolIntro)
+    values (#{toolcode,jdbcType=VARCHAR}, #{toolname,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{examtime,jdbcType=INTEGER}, #{planscore,jdbcType=DOUBLE}, #{tooltype,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{modifydate,jdbcType=TIMESTAMP}, #{questioncount,jdbcType=INTEGER}, 
+      #{tooldifficult,jdbcType=VARCHAR}, #{israndom,jdbcType=VARCHAR}, #{isparaller,jdbcType=VARCHAR}, 
+      #{answerrate,jdbcType=DOUBLE}, #{answerminitime,jdbcType=INTEGER}, #{optionrate,jdbcType=DOUBLE}, 
+      #{polygraphmark,jdbcType=DOUBLE}, #{reporttypeId,jdbcType=BIGINT}, #{toolimage,jdbcType=VARCHAR}, 
+      #{foreignName,jdbcType=VARCHAR}, #{productPrice,jdbcType=DOUBLE}, #{descurl,jdbcType=VARCHAR}, 
+      #{category,jdbcType=INTEGER}, #{producttypeId,jdbcType=BIGINT}, #{tooldesc,jdbcType=LONGVARCHAR}, 
+      #{toolintro,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.zhiding.norm.entity.ToolsWithBLOBs">
+    <selectKey keyProperty="toolId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_zhiding_tools
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="toolcode != null">
+        toolCode,
+      </if>
+      <if test="toolname != null">
+        toolName,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="examtime != null">
+        examTime,
+      </if>
+      <if test="planscore != null">
+        planScore,
+      </if>
+      <if test="tooltype != null">
+        toolType,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="modifydate != null">
+        modifyDate,
+      </if>
+      <if test="questioncount != null">
+        questionCount,
+      </if>
+      <if test="tooldifficult != null">
+        toolDifficult,
+      </if>
+      <if test="israndom != null">
+        isRandom,
+      </if>
+      <if test="isparaller != null">
+        isParaller,
+      </if>
+      <if test="answerrate != null">
+        answerRate,
+      </if>
+      <if test="answerminitime != null">
+        answerMiniTime,
+      </if>
+      <if test="optionrate != null">
+        optionRate,
+      </if>
+      <if test="polygraphmark != null">
+        polygraphMark,
+      </if>
+      <if test="reporttypeId != null">
+        reportType_id,
+      </if>
+      <if test="toolimage != null">
+        toolImage,
+      </if>
+      <if test="foreignName != null">
+        foreign_name,
+      </if>
+      <if test="productPrice != null">
+        product_price,
+      </if>
+      <if test="descurl != null">
+        descUrl,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="producttypeId != null">
+        producttype_id,
+      </if>
+      <if test="tooldesc != null">
+        toolDesc,
+      </if>
+      <if test="toolintro != null">
+        toolIntro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="toolcode != null">
+        #{toolcode,jdbcType=VARCHAR},
+      </if>
+      <if test="toolname != null">
+        #{toolname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="examtime != null">
+        #{examtime,jdbcType=INTEGER},
+      </if>
+      <if test="planscore != null">
+        #{planscore,jdbcType=DOUBLE},
+      </if>
+      <if test="tooltype != null">
+        #{tooltype,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null">
+        #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questioncount != null">
+        #{questioncount,jdbcType=INTEGER},
+      </if>
+      <if test="tooldifficult != null">
+        #{tooldifficult,jdbcType=VARCHAR},
+      </if>
+      <if test="israndom != null">
+        #{israndom,jdbcType=VARCHAR},
+      </if>
+      <if test="isparaller != null">
+        #{isparaller,jdbcType=VARCHAR},
+      </if>
+      <if test="answerrate != null">
+        #{answerrate,jdbcType=DOUBLE},
+      </if>
+      <if test="answerminitime != null">
+        #{answerminitime,jdbcType=INTEGER},
+      </if>
+      <if test="optionrate != null">
+        #{optionrate,jdbcType=DOUBLE},
+      </if>
+      <if test="polygraphmark != null">
+        #{polygraphmark,jdbcType=DOUBLE},
+      </if>
+      <if test="reporttypeId != null">
+        #{reporttypeId,jdbcType=BIGINT},
+      </if>
+      <if test="toolimage != null">
+        #{toolimage,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignName != null">
+        #{foreignName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="descurl != null">
+        #{descurl,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="producttypeId != null">
+        #{producttypeId,jdbcType=BIGINT},
+      </if>
+      <if test="tooldesc != null">
+        #{tooldesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="toolintro != null">
+        #{toolintro,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.zhiding.norm.entity.ToolsWithBLOBs">
+    update s_zhiding_tools
+    <set>
+      <if test="toolcode != null">
+        toolCode = #{toolcode,jdbcType=VARCHAR},
+      </if>
+      <if test="toolname != null">
+        toolName = #{toolname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="examtime != null">
+        examTime = #{examtime,jdbcType=INTEGER},
+      </if>
+      <if test="planscore != null">
+        planScore = #{planscore,jdbcType=DOUBLE},
+      </if>
+      <if test="tooltype != null">
+        toolType = #{tooltype,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null">
+        modifyDate = #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questioncount != null">
+        questionCount = #{questioncount,jdbcType=INTEGER},
+      </if>
+      <if test="tooldifficult != null">
+        toolDifficult = #{tooldifficult,jdbcType=VARCHAR},
+      </if>
+      <if test="israndom != null">
+        isRandom = #{israndom,jdbcType=VARCHAR},
+      </if>
+      <if test="isparaller != null">
+        isParaller = #{isparaller,jdbcType=VARCHAR},
+      </if>
+      <if test="answerrate != null">
+        answerRate = #{answerrate,jdbcType=DOUBLE},
+      </if>
+      <if test="answerminitime != null">
+        answerMiniTime = #{answerminitime,jdbcType=INTEGER},
+      </if>
+      <if test="optionrate != null">
+        optionRate = #{optionrate,jdbcType=DOUBLE},
+      </if>
+      <if test="polygraphmark != null">
+        polygraphMark = #{polygraphmark,jdbcType=DOUBLE},
+      </if>
+      <if test="reporttypeId != null">
+        reportType_id = #{reporttypeId,jdbcType=BIGINT},
+      </if>
+      <if test="toolimage != null">
+        toolImage = #{toolimage,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignName != null">
+        foreign_name = #{foreignName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        product_price = #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="descurl != null">
+        descUrl = #{descurl,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="producttypeId != null">
+        producttype_id = #{producttypeId,jdbcType=BIGINT},
+      </if>
+      <if test="tooldesc != null">
+        toolDesc = #{tooldesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="toolintro != null">
+        toolIntro = #{toolintro,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where tool_id = #{toolId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.com.zhiding.norm.entity.ToolsWithBLOBs">
+    update s_zhiding_tools
+    set toolCode = #{toolcode,jdbcType=VARCHAR},
+      toolName = #{toolname,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      examTime = #{examtime,jdbcType=INTEGER},
+      planScore = #{planscore,jdbcType=DOUBLE},
+      toolType = #{tooltype,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      modifyDate = #{modifydate,jdbcType=TIMESTAMP},
+      questionCount = #{questioncount,jdbcType=INTEGER},
+      toolDifficult = #{tooldifficult,jdbcType=VARCHAR},
+      isRandom = #{israndom,jdbcType=VARCHAR},
+      isParaller = #{isparaller,jdbcType=VARCHAR},
+      answerRate = #{answerrate,jdbcType=DOUBLE},
+      answerMiniTime = #{answerminitime,jdbcType=INTEGER},
+      optionRate = #{optionrate,jdbcType=DOUBLE},
+      polygraphMark = #{polygraphmark,jdbcType=DOUBLE},
+      reportType_id = #{reporttypeId,jdbcType=BIGINT},
+      toolImage = #{toolimage,jdbcType=VARCHAR},
+      foreign_name = #{foreignName,jdbcType=VARCHAR},
+      product_price = #{productPrice,jdbcType=DOUBLE},
+      descUrl = #{descurl,jdbcType=VARCHAR},
+      category = #{category,jdbcType=INTEGER},
+      producttype_id = #{producttypeId,jdbcType=BIGINT},
+      toolDesc = #{tooldesc,jdbcType=LONGVARCHAR},
+      toolIntro = #{toolintro,jdbcType=LONGVARCHAR}
+    where tool_id = #{toolId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.zhiding.norm.entity.Tools">
+    update s_zhiding_tools
+    set toolCode = #{toolcode,jdbcType=VARCHAR},
+      toolName = #{toolname,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      examTime = #{examtime,jdbcType=INTEGER},
+      planScore = #{planscore,jdbcType=DOUBLE},
+      toolType = #{tooltype,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      modifyDate = #{modifydate,jdbcType=TIMESTAMP},
+      questionCount = #{questioncount,jdbcType=INTEGER},
+      toolDifficult = #{tooldifficult,jdbcType=VARCHAR},
+      isRandom = #{israndom,jdbcType=VARCHAR},
+      isParaller = #{isparaller,jdbcType=VARCHAR},
+      answerRate = #{answerrate,jdbcType=DOUBLE},
+      answerMiniTime = #{answerminitime,jdbcType=INTEGER},
+      optionRate = #{optionrate,jdbcType=DOUBLE},
+      polygraphMark = #{polygraphmark,jdbcType=DOUBLE},
+      reportType_id = #{reporttypeId,jdbcType=BIGINT},
+      toolImage = #{toolimage,jdbcType=VARCHAR},
+      foreign_name = #{foreignName,jdbcType=VARCHAR},
+      product_price = #{productPrice,jdbcType=DOUBLE},
+      descUrl = #{descurl,jdbcType=VARCHAR},
+      category = #{category,jdbcType=INTEGER},
+      producttype_id = #{producttypeId,jdbcType=BIGINT}
+    where tool_id = #{toolId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="queryToolsType" resultMap="BaseResultMap">
+  	SELECT tool_id,toolType FROM s_zhiding_tools 
+	WHERE STATUS = 0
+	AND tool_id IN
+  	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+  		#{item}  
+ 	</foreach> 
+  </select>
+</mapper>

@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zhiding.norm.mapper.ActivityPersonsMapper">
+  <resultMap id="BaseResultMap" type="cn.com.zhiding.norm.entity.ActivityPersons">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="personCode" jdbcType="VARCHAR" property="personcode" />
+    <result column="personNumber" jdbcType="VARCHAR" property="personnumber" />
+    <result column="personName" jdbcType="VARCHAR" property="personname" />
+    <result column="personAge" jdbcType="INTEGER" property="personage" />
+    <result column="personWorkYears" jdbcType="VARCHAR" property="personworkyears" />
+    <result column="sourceId" jdbcType="BIGINT" property="sourceid" />
+    <result column="jobs" jdbcType="VARCHAR" property="jobs" />
+    <result column="rank" jdbcType="VARCHAR" property="rank" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="enterprise_id" jdbcType="BIGINT" property="enterpriseId" />
+    <result column="jobSeq_1_id" jdbcType="BIGINT" property="jobseq1Id" />
+    <result column="jobSeq_2_id" jdbcType="BIGINT" property="jobseq2Id" />
+    <result column="jobSeq_3_id" jdbcType="BIGINT" property="jobseq3Id" />
+    <result column="personType" jdbcType="VARCHAR" property="persontype" />
+    <result column="seqCode" jdbcType="VARCHAR" property="seqcode" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="activity_id" jdbcType="BIGINT" property="activityId" />
+    <result column="stauts" jdbcType="INTEGER" property="stauts" />
+    <result column="toolsAllScore" jdbcType="DOUBLE" property="toolsallscore" />
+    <result column="toolsAllWeightScore" jdbcType="DOUBLE" property="toolsallweightscore" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobilePhone" jdbcType="VARCHAR" property="mobilephone" />
+    <result column="noticeWay" jdbcType="INTEGER" property="noticeway" />
+    <result column="noticeType" jdbcType="INTEGER" property="noticetype" />
+    <result column="noticeType2" jdbcType="INTEGER" property="noticetype2" />
+    <result column="personSex" jdbcType="VARCHAR" property="personsex" />
+    <result column="personDegree" jdbcType="VARCHAR" property="persondegree" />
+    <result column="isNew" jdbcType="INTEGER" property="isnew" />
+    <result column="expectedBeginDate" jdbcType="TIMESTAMP" property="expectedbegindate" />
+    <result column="expectedEndDate" jdbcType="TIMESTAMP" property="expectedenddate" />
+    <result column="allReportPdfPath" jdbcType="VARCHAR" property="allreportpdfpath" />
+    <result column="messageExt" jdbcType="VARCHAR" property="messageext" />
+    <result column="replayMessage" jdbcType="VARCHAR" property="replaymessage" />
+    <result column="createuserid" jdbcType="BIGINT" property="createuserid" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="ischarge" jdbcType="INTEGER" property="ischarge" />
+    <result column="personIDNubmer" jdbcType="VARCHAR" property="personidnubmer" />
+    <result column="islogin" jdbcType="INTEGER" property="islogin" />
+    <result column="isChargeDate" jdbcType="TIMESTAMP" property="ischargedate" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="colleges" jdbcType="VARCHAR" property="colleges" />
+    <result column="applyjob" jdbcType="VARCHAR" property="applyjob" />
+    <result column="cameraDate" jdbcType="TIMESTAMP" property="cameradate" />
+    <result column="jumpTimes" jdbcType="INTEGER" property="jumptimes" />
+    <result column="statementDate" jdbcType="TIMESTAMP" property="statementdate" />
+    <result column="customized" jdbcType="VARCHAR" property="customized" />
+    <result column="usercode" jdbcType="VARCHAR" property="usercode" />
+    <result column="isZhidingAnswer" jdbcType="INTEGER" property="iszhidinganswer" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="testStatus" jdbcType="INTEGER" property="teststatus" />
+    <result column="updateTestStatusDate" jdbcType="TIMESTAMP" property="updateteststatusdate" />
+    <result column="return_Status" jdbcType="INTEGER" property="returnStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, personCode, personNumber, personName, personAge, personWorkYears, sourceId, jobs, 
+    rank, department, enterprise_id, jobSeq_1_id, jobSeq_2_id, jobSeq_3_id, personType, 
+    seqCode, password, activity_id, stauts, toolsAllScore, toolsAllWeightScore, email, 
+    mobilePhone, noticeWay, noticeType, noticeType2, personSex, personDegree, isNew, 
+    expectedBeginDate, expectedEndDate, allReportPdfPath, messageExt, replayMessage, 
+    createuserid, createTime, ischarge, personIDNubmer, islogin, isChargeDate, major, 
+    colleges, applyjob, cameraDate, jumpTimes, statementDate, customized, usercode, isZhidingAnswer, 
+    telephone, status, testStatus, updateTestStatusDate, return_Status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from activity_persons
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from activity_persons
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.zhiding.norm.entity.ActivityPersons">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into activity_persons (personCode, personNumber, personName, 
+      personAge, personWorkYears, sourceId, 
+      jobs, rank, department, 
+      enterprise_id, jobSeq_1_id, jobSeq_2_id, 
+      jobSeq_3_id, personType, seqCode, 
+      password, activity_id, stauts, 
+      toolsAllScore, toolsAllWeightScore, email, 
+      mobilePhone, noticeWay, noticeType, 
+      noticeType2, personSex, personDegree, 
+      isNew, expectedBeginDate, expectedEndDate, 
+      allReportPdfPath, messageExt, replayMessage, 
+      createuserid, createTime, ischarge, 
+      personIDNubmer, islogin, isChargeDate, 
+      major, colleges, applyjob, 
+      cameraDate, jumpTimes, statementDate, 
+      customized, usercode, isZhidingAnswer, 
+      telephone, status, testStatus, 
+      updateTestStatusDate, return_Status)
+    values (#{personcode,jdbcType=VARCHAR}, #{personnumber,jdbcType=VARCHAR}, #{personname,jdbcType=VARCHAR}, 
+      #{personage,jdbcType=INTEGER}, #{personworkyears,jdbcType=VARCHAR}, #{sourceid,jdbcType=BIGINT}, 
+      #{jobs,jdbcType=VARCHAR}, #{rank,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{enterpriseId,jdbcType=BIGINT}, #{jobseq1Id,jdbcType=BIGINT}, #{jobseq2Id,jdbcType=BIGINT}, 
+      #{jobseq3Id,jdbcType=BIGINT}, #{persontype,jdbcType=VARCHAR}, #{seqcode,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{activityId,jdbcType=BIGINT}, #{stauts,jdbcType=INTEGER}, 
+      #{toolsallscore,jdbcType=DOUBLE}, #{toolsallweightscore,jdbcType=DOUBLE}, #{email,jdbcType=VARCHAR}, 
+      #{mobilephone,jdbcType=VARCHAR}, #{noticeway,jdbcType=INTEGER}, #{noticetype,jdbcType=INTEGER}, 
+      #{noticetype2,jdbcType=INTEGER}, #{personsex,jdbcType=VARCHAR}, #{persondegree,jdbcType=VARCHAR}, 
+      #{isnew,jdbcType=INTEGER}, #{expectedbegindate,jdbcType=TIMESTAMP}, #{expectedenddate,jdbcType=TIMESTAMP}, 
+      #{allreportpdfpath,jdbcType=VARCHAR}, #{messageext,jdbcType=VARCHAR}, #{replaymessage,jdbcType=VARCHAR}, 
+      #{createuserid,jdbcType=BIGINT}, #{createtime,jdbcType=TIMESTAMP}, #{ischarge,jdbcType=INTEGER}, 
+      #{personidnubmer,jdbcType=VARCHAR}, #{islogin,jdbcType=INTEGER}, #{ischargedate,jdbcType=TIMESTAMP}, 
+      #{major,jdbcType=VARCHAR}, #{colleges,jdbcType=VARCHAR}, #{applyjob,jdbcType=VARCHAR}, 
+      #{cameradate,jdbcType=TIMESTAMP}, #{jumptimes,jdbcType=INTEGER}, #{statementdate,jdbcType=TIMESTAMP}, 
+      #{customized,jdbcType=VARCHAR}, #{usercode,jdbcType=VARCHAR}, #{iszhidinganswer,jdbcType=INTEGER}, 
+      #{telephone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{teststatus,jdbcType=INTEGER}, 
+      #{updateteststatusdate,jdbcType=TIMESTAMP}, #{returnStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.zhiding.norm.entity.ActivityPersons">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into activity_persons
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="personcode != null">
+        personCode,
+      </if>
+      <if test="personnumber != null">
+        personNumber,
+      </if>
+      <if test="personname != null">
+        personName,
+      </if>
+      <if test="personage != null">
+        personAge,
+      </if>
+      <if test="personworkyears != null">
+        personWorkYears,
+      </if>
+      <if test="sourceid != null">
+        sourceId,
+      </if>
+      <if test="jobs != null">
+        jobs,
+      </if>
+      <if test="rank != null">
+        rank,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="enterpriseId != null">
+        enterprise_id,
+      </if>
+      <if test="jobseq1Id != null">
+        jobSeq_1_id,
+      </if>
+      <if test="jobseq2Id != null">
+        jobSeq_2_id,
+      </if>
+      <if test="jobseq3Id != null">
+        jobSeq_3_id,
+      </if>
+      <if test="persontype != null">
+        personType,
+      </if>
+      <if test="seqcode != null">
+        seqCode,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="activityId != null">
+        activity_id,
+      </if>
+      <if test="stauts != null">
+        stauts,
+      </if>
+      <if test="toolsallscore != null">
+        toolsAllScore,
+      </if>
+      <if test="toolsallweightscore != null">
+        toolsAllWeightScore,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="mobilephone != null">
+        mobilePhone,
+      </if>
+      <if test="noticeway != null">
+        noticeWay,
+      </if>
+      <if test="noticetype != null">
+        noticeType,
+      </if>
+      <if test="noticetype2 != null">
+        noticeType2,
+      </if>
+      <if test="personsex != null">
+        personSex,
+      </if>
+      <if test="persondegree != null">
+        personDegree,
+      </if>
+      <if test="isnew != null">
+        isNew,
+      </if>
+      <if test="expectedbegindate != null">
+        expectedBeginDate,
+      </if>
+      <if test="expectedenddate != null">
+        expectedEndDate,
+      </if>
+      <if test="allreportpdfpath != null">
+        allReportPdfPath,
+      </if>
+      <if test="messageext != null">
+        messageExt,
+      </if>
+      <if test="replaymessage != null">
+        replayMessage,
+      </if>
+      <if test="createuserid != null">
+        createuserid,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="ischarge != null">
+        ischarge,
+      </if>
+      <if test="personidnubmer != null">
+        personIDNubmer,
+      </if>
+      <if test="islogin != null">
+        islogin,
+      </if>
+      <if test="ischargedate != null">
+        isChargeDate,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="colleges != null">
+        colleges,
+      </if>
+      <if test="applyjob != null">
+        applyjob,
+      </if>
+      <if test="cameradate != null">
+        cameraDate,
+      </if>
+      <if test="jumptimes != null">
+        jumpTimes,
+      </if>
+      <if test="statementdate != null">
+        statementDate,
+      </if>
+      <if test="customized != null">
+        customized,
+      </if>
+      <if test="usercode != null">
+        usercode,
+      </if>
+      <if test="iszhidinganswer != null">
+        isZhidingAnswer,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="teststatus != null">
+        testStatus,
+      </if>
+      <if test="updateteststatusdate != null">
+        updateTestStatusDate,
+      </if>
+      <if test="returnStatus != null">
+        return_Status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="personcode != null">
+        #{personcode,jdbcType=VARCHAR},
+      </if>
+      <if test="personnumber != null">
+        #{personnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="personname != null">
+        #{personname,jdbcType=VARCHAR},
+      </if>
+      <if test="personage != null">
+        #{personage,jdbcType=INTEGER},
+      </if>
+      <if test="personworkyears != null">
+        #{personworkyears,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceid != null">
+        #{sourceid,jdbcType=BIGINT},
+      </if>
+      <if test="jobs != null">
+        #{jobs,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseId != null">
+        #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="jobseq1Id != null">
+        #{jobseq1Id,jdbcType=BIGINT},
+      </if>
+      <if test="jobseq2Id != null">
+        #{jobseq2Id,jdbcType=BIGINT},
+      </if>
+      <if test="jobseq3Id != null">
+        #{jobseq3Id,jdbcType=BIGINT},
+      </if>
+      <if test="persontype != null">
+        #{persontype,jdbcType=VARCHAR},
+      </if>
+      <if test="seqcode != null">
+        #{seqcode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null">
+        #{activityId,jdbcType=BIGINT},
+      </if>
+      <if test="stauts != null">
+        #{stauts,jdbcType=INTEGER},
+      </if>
+      <if test="toolsallscore != null">
+        #{toolsallscore,jdbcType=DOUBLE},
+      </if>
+      <if test="toolsallweightscore != null">
+        #{toolsallweightscore,jdbcType=DOUBLE},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null">
+        #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeway != null">
+        #{noticeway,jdbcType=INTEGER},
+      </if>
+      <if test="noticetype != null">
+        #{noticetype,jdbcType=INTEGER},
+      </if>
+      <if test="noticetype2 != null">
+        #{noticetype2,jdbcType=INTEGER},
+      </if>
+      <if test="personsex != null">
+        #{personsex,jdbcType=VARCHAR},
+      </if>
+      <if test="persondegree != null">
+        #{persondegree,jdbcType=VARCHAR},
+      </if>
+      <if test="isnew != null">
+        #{isnew,jdbcType=INTEGER},
+      </if>
+      <if test="expectedbegindate != null">
+        #{expectedbegindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expectedenddate != null">
+        #{expectedenddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="allreportpdfpath != null">
+        #{allreportpdfpath,jdbcType=VARCHAR},
+      </if>
+      <if test="messageext != null">
+        #{messageext,jdbcType=VARCHAR},
+      </if>
+      <if test="replaymessage != null">
+        #{replaymessage,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null">
+        #{createuserid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ischarge != null">
+        #{ischarge,jdbcType=INTEGER},
+      </if>
+      <if test="personidnubmer != null">
+        #{personidnubmer,jdbcType=VARCHAR},
+      </if>
+      <if test="islogin != null">
+        #{islogin,jdbcType=INTEGER},
+      </if>
+      <if test="ischargedate != null">
+        #{ischargedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="colleges != null">
+        #{colleges,jdbcType=VARCHAR},
+      </if>
+      <if test="applyjob != null">
+        #{applyjob,jdbcType=VARCHAR},
+      </if>
+      <if test="cameradate != null">
+        #{cameradate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jumptimes != null">
+        #{jumptimes,jdbcType=INTEGER},
+      </if>
+      <if test="statementdate != null">
+        #{statementdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customized != null">
+        #{customized,jdbcType=VARCHAR},
+      </if>
+      <if test="usercode != null">
+        #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="iszhidinganswer != null">
+        #{iszhidinganswer,jdbcType=INTEGER},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="teststatus != null">
+        #{teststatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateteststatusdate != null">
+        #{updateteststatusdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnStatus != null">
+        #{returnStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.zhiding.norm.entity.ActivityPersons">
+    update activity_persons
+    <set>
+      <if test="personcode != null">
+        personCode = #{personcode,jdbcType=VARCHAR},
+      </if>
+      <if test="personnumber != null">
+        personNumber = #{personnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="personname != null">
+        personName = #{personname,jdbcType=VARCHAR},
+      </if>
+      <if test="personage != null">
+        personAge = #{personage,jdbcType=INTEGER},
+      </if>
+      <if test="personworkyears != null">
+        personWorkYears = #{personworkyears,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceid != null">
+        sourceId = #{sourceid,jdbcType=BIGINT},
+      </if>
+      <if test="jobs != null">
+        jobs = #{jobs,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        rank = #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      </if>
+      <if test="jobseq1Id != null">
+        jobSeq_1_id = #{jobseq1Id,jdbcType=BIGINT},
+      </if>
+      <if test="jobseq2Id != null">
+        jobSeq_2_id = #{jobseq2Id,jdbcType=BIGINT},
+      </if>
+      <if test="jobseq3Id != null">
+        jobSeq_3_id = #{jobseq3Id,jdbcType=BIGINT},
+      </if>
+      <if test="persontype != null">
+        personType = #{persontype,jdbcType=VARCHAR},
+      </if>
+      <if test="seqcode != null">
+        seqCode = #{seqcode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null">
+        activity_id = #{activityId,jdbcType=BIGINT},
+      </if>
+      <if test="stauts != null">
+        stauts = #{stauts,jdbcType=INTEGER},
+      </if>
+      <if test="toolsallscore != null">
+        toolsAllScore = #{toolsallscore,jdbcType=DOUBLE},
+      </if>
+      <if test="toolsallweightscore != null">
+        toolsAllWeightScore = #{toolsallweightscore,jdbcType=DOUBLE},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null">
+        mobilePhone = #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeway != null">
+        noticeWay = #{noticeway,jdbcType=INTEGER},
+      </if>
+      <if test="noticetype != null">
+        noticeType = #{noticetype,jdbcType=INTEGER},
+      </if>
+      <if test="noticetype2 != null">
+        noticeType2 = #{noticetype2,jdbcType=INTEGER},
+      </if>
+      <if test="personsex != null">
+        personSex = #{personsex,jdbcType=VARCHAR},
+      </if>
+      <if test="persondegree != null">
+        personDegree = #{persondegree,jdbcType=VARCHAR},
+      </if>
+      <if test="isnew != null">
+        isNew = #{isnew,jdbcType=INTEGER},
+      </if>
+      <if test="expectedbegindate != null">
+        expectedBeginDate = #{expectedbegindate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expectedenddate != null">
+        expectedEndDate = #{expectedenddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="allreportpdfpath != null">
+        allReportPdfPath = #{allreportpdfpath,jdbcType=VARCHAR},
+      </if>
+      <if test="messageext != null">
+        messageExt = #{messageext,jdbcType=VARCHAR},
+      </if>
+      <if test="replaymessage != null">
+        replayMessage = #{replaymessage,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null">
+        createuserid = #{createuserid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ischarge != null">
+        ischarge = #{ischarge,jdbcType=INTEGER},
+      </if>
+      <if test="personidnubmer != null">
+        personIDNubmer = #{personidnubmer,jdbcType=VARCHAR},
+      </if>
+      <if test="islogin != null">
+        islogin = #{islogin,jdbcType=INTEGER},
+      </if>
+      <if test="ischargedate != null">
+        isChargeDate = #{ischargedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="colleges != null">
+        colleges = #{colleges,jdbcType=VARCHAR},
+      </if>
+      <if test="applyjob != null">
+        applyjob = #{applyjob,jdbcType=VARCHAR},
+      </if>
+      <if test="cameradate != null">
+        cameraDate = #{cameradate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jumptimes != null">
+        jumpTimes = #{jumptimes,jdbcType=INTEGER},
+      </if>
+      <if test="statementdate != null">
+        statementDate = #{statementdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customized != null">
+        customized = #{customized,jdbcType=VARCHAR},
+      </if>
+      <if test="usercode != null">
+        usercode = #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="iszhidinganswer != null">
+        isZhidingAnswer = #{iszhidinganswer,jdbcType=INTEGER},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="teststatus != null">
+        testStatus = #{teststatus,jdbcType=INTEGER},
+      </if>
+      <if test="updateteststatusdate != null">
+        updateTestStatusDate = #{updateteststatusdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnStatus != null">
+        return_Status = #{returnStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.zhiding.norm.entity.ActivityPersons">
+    update activity_persons
+    set personCode = #{personcode,jdbcType=VARCHAR},
+      personNumber = #{personnumber,jdbcType=VARCHAR},
+      personName = #{personname,jdbcType=VARCHAR},
+      personAge = #{personage,jdbcType=INTEGER},
+      personWorkYears = #{personworkyears,jdbcType=VARCHAR},
+      sourceId = #{sourceid,jdbcType=BIGINT},
+      jobs = #{jobs,jdbcType=VARCHAR},
+      rank = #{rank,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      enterprise_id = #{enterpriseId,jdbcType=BIGINT},
+      jobSeq_1_id = #{jobseq1Id,jdbcType=BIGINT},
+      jobSeq_2_id = #{jobseq2Id,jdbcType=BIGINT},
+      jobSeq_3_id = #{jobseq3Id,jdbcType=BIGINT},
+      personType = #{persontype,jdbcType=VARCHAR},
+      seqCode = #{seqcode,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      activity_id = #{activityId,jdbcType=BIGINT},
+      stauts = #{stauts,jdbcType=INTEGER},
+      toolsAllScore = #{toolsallscore,jdbcType=DOUBLE},
+      toolsAllWeightScore = #{toolsallweightscore,jdbcType=DOUBLE},
+      email = #{email,jdbcType=VARCHAR},
+      mobilePhone = #{mobilephone,jdbcType=VARCHAR},
+      noticeWay = #{noticeway,jdbcType=INTEGER},
+      noticeType = #{noticetype,jdbcType=INTEGER},
+      noticeType2 = #{noticetype2,jdbcType=INTEGER},
+      personSex = #{personsex,jdbcType=VARCHAR},
+      personDegree = #{persondegree,jdbcType=VARCHAR},
+      isNew = #{isnew,jdbcType=INTEGER},
+      expectedBeginDate = #{expectedbegindate,jdbcType=TIMESTAMP},
+      expectedEndDate = #{expectedenddate,jdbcType=TIMESTAMP},
+      allReportPdfPath = #{allreportpdfpath,jdbcType=VARCHAR},
+      messageExt = #{messageext,jdbcType=VARCHAR},
+      replayMessage = #{replaymessage,jdbcType=VARCHAR},
+      createuserid = #{createuserid,jdbcType=BIGINT},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      ischarge = #{ischarge,jdbcType=INTEGER},
+      personIDNubmer = #{personidnubmer,jdbcType=VARCHAR},
+      islogin = #{islogin,jdbcType=INTEGER},
+      isChargeDate = #{ischargedate,jdbcType=TIMESTAMP},
+      major = #{major,jdbcType=VARCHAR},
+      colleges = #{colleges,jdbcType=VARCHAR},
+      applyjob = #{applyjob,jdbcType=VARCHAR},
+      cameraDate = #{cameradate,jdbcType=TIMESTAMP},
+      jumpTimes = #{jumptimes,jdbcType=INTEGER},
+      statementDate = #{statementdate,jdbcType=TIMESTAMP},
+      customized = #{customized,jdbcType=VARCHAR},
+      usercode = #{usercode,jdbcType=VARCHAR},
+      isZhidingAnswer = #{iszhidinganswer,jdbcType=INTEGER},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      testStatus = #{teststatus,jdbcType=INTEGER},
+      updateTestStatusDate = #{updateteststatusdate,jdbcType=TIMESTAMP},
+      return_Status = #{returnStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

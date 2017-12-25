@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zhiding.norm.mapper.NormMapper">
+
+    <resultMap id="BaseResultMap" type="cn.com.zhiding.norm.entity.Norm">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="product_id" jdbcType="BIGINT" property="productId"/>
+        <result column="norm_name" jdbcType="VARCHAR" property="normName"/>
+        <result column="version" jdbcType="VARCHAR" property="version"/>
+        <result column="sample_size" jdbcType="INTEGER" property="sampleSize"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="figure_time" jdbcType="TIMESTAMP" property="figureTime"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="figure_msg" jdbcType="VARCHAR" property="figureMsg"/>
+        <result column="name" jdbcType="VARCHAR" property="productName"/>
+        <result column="is_send" javaType="INTEGER" property="isSend"/>
+    </resultMap>
+
+    <!-- 关联user -->
+    <resultMap extends="BaseResultMap" id="ResultMapWithUser" type="cn.com.zhiding.norm.entity.Norm">
+
+        <association property="user" javaType="cn.com.zhiding.user.entity.User">
+            <id column="user_id" property="id"/>
+            <result column="username" property="name"/>
+            <result column="email" property="email"/>
+        </association>
+    </resultMap>
+
+    <!-- 关联NormDetailed -->
+    <resultMap extends="BaseResultMap" id="ResultMapWithDetailed" type="cn.com.zhiding.norm.entity.Norm">
+        <collection property="ndList" ofType="cn.com.zhiding.norm.entity.NormDetailed">
+            <id column="detailedId" property="id"/>
+            <result column="module_id" property="moduleId"/>
+            <result column="average" property="average"/>
+            <result column="standard_score" property="standardScore"/>
+            <result column="norm_id" property="normId"/>
+            <result column="detailedDate" property="createDate"/>
+            <result column="detailedStatus" property="status"/>
+            <!-- 关联 Module-->
+            <association property="module" javaType="cn.com.zhiding.norm.entity.Module">
+                <id column="module_id" property="moduleId"/>
+                <result column="moduleName" property="modulename"/>
+                <result column="moduleType" property="moduletype"/>
+            </association>
+        </collection>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, user_id, product_id, norm_name, version, sample_size, description, figure_time,
+    create_date, status, start_time, end_time, figure_msg ,is_send
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_norm
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    UPDATE  t_norm
+    SET status = '4'
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="cn.com.zhiding.norm.entity.Norm" useGeneratedKeys="true" keyProperty="userId">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_norm (user_id, product_id, norm_name,
+        version, sample_size, description,
+        figure_time, create_date, status,
+        start_time, end_time, figure_msg,is_send
+        )
+        values (#{userId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{normName,jdbcType=VARCHAR},
+        #{version,jdbcType=VARCHAR}, #{sampleSize,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR},
+        #{figureTime,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER},
+        #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{figureMsg,jdbcType=VARCHAR},
+        #{isSend,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="cn.com.zhiding.norm.entity.Norm" useGeneratedKeys="true"
+            keyProperty="id">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_norm
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="productId != null">
+                product_id,
+            </if>
+            <if test="normName != null">
+                norm_name,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="sampleSize != null">
+                sample_size,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="figureTime != null">
+                figure_time,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="figureMsg != null">
+                figure_msg,
+            </if>
+            <if test="isSend != null">
+                is_send,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="productId != null">
+                #{productId,jdbcType=BIGINT},
+            </if>
+            <if test="normName != null">
+                #{normName,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=VARCHAR},
+            </if>
+            <if test="sampleSize != null">
+                #{sampleSize,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="figureTime != null">
+                #{figureTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="figureMsg != null">
+                #{figureMsg,jdbcType=VARCHAR},
+            </if>
+             <if test="isSend != null">
+                #{isSend,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.zhiding.norm.entity.Norm">
+        update t_norm
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId,jdbcType=BIGINT},
+            </if>
+            <if test="normName != null">
+                norm_name = #{normName,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=VARCHAR},
+            </if>
+            <if test="sampleSize != null">
+                sample_size = #{sampleSize,jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="figureTime != null">
+                figure_time = #{figureTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="figureMsg != null">
+                figure_msg = #{figureMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="isSend != null">
+                is_send = #{isSend,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.com.zhiding.norm.entity.Norm">
+    update t_norm
+    set user_id = #{userId,jdbcType=BIGINT},
+      product_id = #{productId,jdbcType=BIGINT},
+      norm_name = #{normName,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      sample_size = #{sampleSize,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      figure_time = #{figureTime,jdbcType=TIMESTAMP},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      figure_msg = #{figureMsg,jdbcType=VARCHAR},
+      is_send = #{isSend,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <!-- 查询常模明细 -->
+    <select id="selectByPrimaryKeyOut" parameterType="java.lang.Long" resultMap="ResultMapWithDetailed">
+    SELECT t_norm.`id`,t_norm.`user_id`,t_norm.`product_id`, norm_name, VERSION, sample_size, description, figure_time, t_norm.`create_date`, t_norm.`status`,t_norm_detailed.`id` AS detailedId,t_norm_detailed.`module_id`,average,standard_score,norm_id,t_norm_detailed.`create_date`AS detailedDate,t_norm_detailed.`status`AS detailedStatus,moduleName,moduleType
+    FROM `t_norm`,`t_norm_detailed`,`s_zhiding_module`
+    WHERE t_norm.`id`=t_norm_detailed.`norm_id` AND t_norm_detailed.`module_id`=s_zhiding_module.`module_id` AND t_norm.`id`= #{id,jdbcType=BIGINT} AND t_norm_detailed.`status` ='0'
+  </select>
+
+    <!-- 查询用户所负责产品  常模列表 -->
+    <select id="selectByUserId" parameterType="Map" resultMap="BaseResultMap">
+        select
+        t_norm.id,norm_name,VERSION, sample_size, description, figure_time, t_norm.create_date,t_norm.status,name
+        from t_user_product_relations,t_combination_product,t_norm
+        <where>
+         <if test="normname!=null and normname!=''">
+            and norm_name like concat(concat('%',#{normname,jdbcType=VARCHAR}),'%')
+         </if>
+         <if test="status!=null">
+            and t_norm.`status` = #{status,jdbcType=INTEGER}
+         </if>
+	     <if test="userId!=null">
+	       and t_user_product_relations.`user_id` = #{userId,jdbcType=BIGINT}
+	     </if>
+	     and t_user_product_relations.`product_id`=t_combination_product.`id` AND t_norm.`product_id` = t_combination_product.`id` AND t_norm.`status` != '4'
+	   </where>
+	   ORDER BY t_norm.`create_date` DESC
+       limit #{start},#{pagesize}
+      </select>
+
+       <!-- 查询用户所负责产品常模列表数量 -->
+    <select id="countNormList" parameterType="Map" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_user_product_relations,t_combination_product,t_norm
+        <where>
+         <if test="normname!=null and normname!=''">
+            and norm_name like concat(concat('%',#{normname,jdbcType=VARCHAR}),'%')
+         </if>
+         <if test="status!=null">
+            and t_norm.`status` = #{status,jdbcType=INTEGER}
+         </if>
+	     <if test="userId!=null">
+	       and t_user_product_relations.`user_id` = #{userId,jdbcType=BIGINT}
+	     </if>
+	     and t_user_product_relations.`product_id`=t_combination_product.`id` AND t_norm.`product_id` = t_combination_product.`id` AND t_norm.`status` != '4'
+	   </where>
+  </select>
+  <!-- 按照版本查询常模 -->
+   <select id="selectByVersion"  resultMap="BaseResultMap">
+  	select * from t_norm where version = #{0} and product_id = #{1}  and status  &lt;&gt; 4 
+  </select>
+
+  <select id="getNeedSent" resultMap="ResultMapWithUser">
+    SELECT t_norm.`id`, user_id, product_id, norm_name, VERSION, sample_size, description, figure_time, t_norm.`create_date`, t_norm.`status`, start_time, end_time, figure_msg ,is_send,t_user.`name` username,email,t_combination_product.`name`
+    FROM t_user,t_norm,t_combination_product
+    WHERE is_send = '1' AND t_norm.`user_id` = t_user.`id` AND t_norm.`product_id`= t_combination_product.`id`
+  </select>
+</mapper>

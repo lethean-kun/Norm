@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zhiding.product.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="cn.com.zhiding.product.entity.Product">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="combination_id" jdbcType="VARCHAR" property="combinationId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="name_en" jdbcType="VARCHAR" property="nameEn" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_price" jdbcType="DOUBLE" property="productPrice" />
+    <result column="product_time" jdbcType="INTEGER" property="productTime" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="modifytime" jdbcType="TIMESTAMP" property="modifytime" />
+    <result column="product_type" jdbcType="INTEGER" property="productType" />
+    <result column="producttype_id" jdbcType="BIGINT" property="producttypeId" />
+    <result column="products" jdbcType="VARCHAR" property="products" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, combination_id, name, name_en, product_code, product_price, product_time, createtime, 
+    modifytime, product_type, producttype_id, products, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_combination_product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_combination_product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.zhiding.product.entity.Product">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_combination_product (combination_id, name, name_en, 
+      product_code, product_price, product_time, 
+      createtime, modifytime, product_type, 
+      producttype_id, products, status
+      )
+    values (#{combinationId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{nameEn,jdbcType=VARCHAR}, 
+      #{productCode,jdbcType=VARCHAR}, #{productPrice,jdbcType=DOUBLE}, #{productTime,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{modifytime,jdbcType=TIMESTAMP}, #{productType,jdbcType=INTEGER}, 
+      #{producttypeId,jdbcType=BIGINT}, #{products,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.zhiding.product.entity.Product">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_combination_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="combinationId != null">
+        combination_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="nameEn != null">
+        name_en,
+      </if>
+      <if test="productCode != null">
+        product_code,
+      </if>
+      <if test="productPrice != null">
+        product_price,
+      </if>
+      <if test="productTime != null">
+        product_time,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="modifytime != null">
+        modifytime,
+      </if>
+      <if test="productType != null">
+        product_type,
+      </if>
+      <if test="producttypeId != null">
+        producttype_id,
+      </if>
+      <if test="products != null">
+        products,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="combinationId != null">
+        #{combinationId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nameEn != null">
+        #{nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productTime != null">
+        #{productTime,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifytime != null">
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productType != null">
+        #{productType,jdbcType=INTEGER},
+      </if>
+      <if test="producttypeId != null">
+        #{producttypeId,jdbcType=BIGINT},
+      </if>
+      <if test="products != null">
+        #{products,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.zhiding.product.entity.Product">
+    update t_combination_product
+    <set>
+      <if test="combinationId != null">
+        combination_id = #{combinationId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nameEn != null">
+        name_en = #{nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        product_price = #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="productTime != null">
+        product_time = #{productTime,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifytime != null">
+        modifytime = #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productType != null">
+        product_type = #{productType,jdbcType=INTEGER},
+      </if>
+      <if test="producttypeId != null">
+        producttype_id = #{producttypeId,jdbcType=BIGINT},
+      </if>
+      <if test="products != null">
+        products = #{products,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.zhiding.product.entity.Product">
+    update t_combination_product
+    set combination_id = #{combinationId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      name_en = #{nameEn,jdbcType=VARCHAR},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      product_price = #{productPrice,jdbcType=DOUBLE},
+      product_time = #{productTime,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      modifytime = #{modifytime,jdbcType=TIMESTAMP},
+      product_type = #{productType,jdbcType=INTEGER},
+      producttype_id = #{producttypeId,jdbcType=BIGINT},
+      products = #{products,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

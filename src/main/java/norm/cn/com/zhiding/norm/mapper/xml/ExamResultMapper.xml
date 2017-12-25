@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zhiding.norm.mapper.ExamResultMapper">
+  <resultMap id="BaseResultMap" type="cn.com.zhiding.norm.entity.ExamResult">
+    <id column="d_result_id" jdbcType="BIGINT" property="dResultId" />
+    <result column="activityPerson_id" jdbcType="BIGINT" property="activitypersonId" />
+    <result column="tool_id" jdbcType="BIGINT" property="toolId" />
+    <result column="module_id" jdbcType="BIGINT" property="moduleId" />
+    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+    <result column="totalMark" jdbcType="DOUBLE" property="totalmark" />
+    <result column="mark1" jdbcType="DOUBLE" property="mark1" />
+    <result column="mark2" jdbcType="DOUBLE" property="mark2" />
+    <result column="avgDimeMark" jdbcType="DOUBLE" property="avgdimemark" />
+    <result column="z_mark" jdbcType="DOUBLE" property="zMark" />
+    <result column="t_mark" jdbcType="DOUBLE" property="tMark" />
+    <result column="p_mark" jdbcType="DOUBLE" property="pMark" />
+    <result column="p_modified" jdbcType="DOUBLE" property="pModified" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="avgQuesMark" jdbcType="DOUBLE" property="avgquesmark" />
+    <result column="tenPoint" jdbcType="INTEGER" property="tenpoint" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    d_result_id, activityPerson_id, tool_id, module_id, module_name, totalMark, mark1, 
+    mark2, avgDimeMark, z_mark, t_mark, p_mark, p_modified, level, avgQuesMark, tenPoint
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_exam_result
+    where d_result_id = #{dResultId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from s_exam_result
+    where d_result_id = #{dResultId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.zhiding.norm.entity.ExamResult">
+    <selectKey keyProperty="dResultId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_exam_result (activityPerson_id, tool_id, module_id, 
+      module_name, totalMark, mark1, 
+      mark2, avgDimeMark, z_mark, 
+      t_mark, p_mark, p_modified, 
+      level, avgQuesMark, tenPoint
+      )
+    values (#{activitypersonId,jdbcType=BIGINT}, #{toolId,jdbcType=BIGINT}, #{moduleId,jdbcType=BIGINT}, 
+      #{moduleName,jdbcType=VARCHAR}, #{totalmark,jdbcType=DOUBLE}, #{mark1,jdbcType=DOUBLE}, 
+      #{mark2,jdbcType=DOUBLE}, #{avgdimemark,jdbcType=DOUBLE}, #{zMark,jdbcType=DOUBLE}, 
+      #{tMark,jdbcType=DOUBLE}, #{pMark,jdbcType=DOUBLE}, #{pModified,jdbcType=DOUBLE}, 
+      #{level,jdbcType=VARCHAR}, #{avgquesmark,jdbcType=DOUBLE}, #{tenpoint,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.zhiding.norm.entity.ExamResult">
+    <selectKey keyProperty="dResultId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_exam_result
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activitypersonId != null">
+        activityPerson_id,
+      </if>
+      <if test="toolId != null">
+        tool_id,
+      </if>
+      <if test="moduleId != null">
+        module_id,
+      </if>
+      <if test="moduleName != null">
+        module_name,
+      </if>
+      <if test="totalmark != null">
+        totalMark,
+      </if>
+      <if test="mark1 != null">
+        mark1,
+      </if>
+      <if test="mark2 != null">
+        mark2,
+      </if>
+      <if test="avgdimemark != null">
+        avgDimeMark,
+      </if>
+      <if test="zMark != null">
+        z_mark,
+      </if>
+      <if test="tMark != null">
+        t_mark,
+      </if>
+      <if test="pMark != null">
+        p_mark,
+      </if>
+      <if test="pModified != null">
+        p_modified,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="avgquesmark != null">
+        avgQuesMark,
+      </if>
+      <if test="tenpoint != null">
+        tenPoint,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activitypersonId != null">
+        #{activitypersonId,jdbcType=BIGINT},
+      </if>
+      <if test="toolId != null">
+        #{toolId,jdbcType=BIGINT},
+      </if>
+      <if test="moduleId != null">
+        #{moduleId,jdbcType=BIGINT},
+      </if>
+      <if test="moduleName != null">
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalmark != null">
+        #{totalmark,jdbcType=DOUBLE},
+      </if>
+      <if test="mark1 != null">
+        #{mark1,jdbcType=DOUBLE},
+      </if>
+      <if test="mark2 != null">
+        #{mark2,jdbcType=DOUBLE},
+      </if>
+      <if test="avgdimemark != null">
+        #{avgdimemark,jdbcType=DOUBLE},
+      </if>
+      <if test="zMark != null">
+        #{zMark,jdbcType=DOUBLE},
+      </if>
+      <if test="tMark != null">
+        #{tMark,jdbcType=DOUBLE},
+      </if>
+      <if test="pMark != null">
+        #{pMark,jdbcType=DOUBLE},
+      </if>
+      <if test="pModified != null">
+        #{pModified,jdbcType=DOUBLE},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="avgquesmark != null">
+        #{avgquesmark,jdbcType=DOUBLE},
+      </if>
+      <if test="tenpoint != null">
+        #{tenpoint,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.zhiding.norm.entity.ExamResult">
+    update s_exam_result
+    <set>
+      <if test="activitypersonId != null">
+        activityPerson_id = #{activitypersonId,jdbcType=BIGINT},
+      </if>
+      <if test="toolId != null">
+        tool_id = #{toolId,jdbcType=BIGINT},
+      </if>
+      <if test="moduleId != null">
+        module_id = #{moduleId,jdbcType=BIGINT},
+      </if>
+      <if test="moduleName != null">
+        module_name = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalmark != null">
+        totalMark = #{totalmark,jdbcType=DOUBLE},
+      </if>
+      <if test="mark1 != null">
+        mark1 = #{mark1,jdbcType=DOUBLE},
+      </if>
+      <if test="mark2 != null">
+        mark2 = #{mark2,jdbcType=DOUBLE},
+      </if>
+      <if test="avgdimemark != null">
+        avgDimeMark = #{avgdimemark,jdbcType=DOUBLE},
+      </if>
+      <if test="zMark != null">
+        z_mark = #{zMark,jdbcType=DOUBLE},
+      </if>
+      <if test="tMark != null">
+        t_mark = #{tMark,jdbcType=DOUBLE},
+      </if>
+      <if test="pMark != null">
+        p_mark = #{pMark,jdbcType=DOUBLE},
+      </if>
+      <if test="pModified != null">
+        p_modified = #{pModified,jdbcType=DOUBLE},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="avgquesmark != null">
+        avgQuesMark = #{avgquesmark,jdbcType=DOUBLE},
+      </if>
+      <if test="tenpoint != null">
+        tenPoint = #{tenpoint,jdbcType=INTEGER},
+      </if>
+    </set>
+    where d_result_id = #{dResultId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.zhiding.norm.entity.ExamResult">
+    update s_exam_result
+    set activityPerson_id = #{activitypersonId,jdbcType=BIGINT},
+      tool_id = #{toolId,jdbcType=BIGINT},
+      module_id = #{moduleId,jdbcType=BIGINT},
+      module_name = #{moduleName,jdbcType=VARCHAR},
+      totalMark = #{totalmark,jdbcType=DOUBLE},
+      mark1 = #{mark1,jdbcType=DOUBLE},
+      mark2 = #{mark2,jdbcType=DOUBLE},
+      avgDimeMark = #{avgdimemark,jdbcType=DOUBLE},
+      z_mark = #{zMark,jdbcType=DOUBLE},
+      t_mark = #{tMark,jdbcType=DOUBLE},
+      p_mark = #{pMark,jdbcType=DOUBLE},
+      p_modified = #{pModified,jdbcType=DOUBLE},
+      level = #{level,jdbcType=VARCHAR},
+      avgQuesMark = #{avgquesmark,jdbcType=DOUBLE},
+      tenPoint = #{tenpoint,jdbcType=INTEGER}
+    where d_result_id = #{dResultId,jdbcType=BIGINT}
+  </update>
+  <!-- 获取一级维度的分数 -->
+  <select id="findExamResultByApIdAMid"  resultMap="BaseResultMap">
+  	select 
+	<include refid="Base_Column_List" />
+	from s_exam_result where module_id = #{0} and activityPerson_id = #{1} and tool_id = #{2} 
+  </select>
+  
+  <!-- 批量取成绩分数 -->
+  <select id="queryExamResulByApIds" resultMap="BaseResultMap">
+  	select 
+	<include refid="Base_Column_List" />
+	from s_exam_result where activityPerson_id in 
+	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+  		#{item}  
+ 	</foreach> 
+	 and tool_id = #{toolsId}
+  </select>
+</mapper>

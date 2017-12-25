@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zhiding.norm.mapper.SolutionsMapper">
+  <resultMap id="BaseResultMap" type="cn.com.zhiding.norm.entity.Solutions">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="solutions_type" jdbcType="BIGINT" property="solutionsType" />
+    <result column="solutions_name" jdbcType="VARCHAR" property="solutionsName" />
+    <result column="solutions_name_en" jdbcType="VARCHAR" property="solutionsNameEn" />
+    <result column="jump_url" jdbcType="VARCHAR" property="jumpUrl" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="updateLogs" jdbcType="VARCHAR" property="updatelogs" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="old_temp_id" jdbcType="BIGINT" property="oldTempId" />
+    <result column="stauts" jdbcType="INTEGER" property="stauts" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="Product_code_note" jdbcType="VARCHAR" property="productCodeNote" />
+    <result column="foreign_name" jdbcType="VARCHAR" property="foreignName" />
+    <result column="internal_name" jdbcType="VARCHAR" property="internalName" />
+    <result column="time" jdbcType="INTEGER" property="time" />
+    <result column="difficulty" jdbcType="VARCHAR" property="difficulty" />
+    <result column="target" jdbcType="VARCHAR" property="target" />
+    <result column="purpose" jdbcType="VARCHAR" property="purpose" />
+    <result column="product_intruduce" jdbcType="VARCHAR" property="productIntruduce" />
+    <result column="product_price" jdbcType="DOUBLE" property="productPrice" />
+    <result column="descUrl" jdbcType="VARCHAR" property="descurl" />
+    <result column="category" jdbcType="INTEGER" property="category" />
+    <result column="producttype_id" jdbcType="BIGINT" property="producttypeId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, solutions_type, solutions_name, solutions_name_en, jump_url, is_del, updateLogs, 
+    description, old_temp_id, stauts, product_code, Product_code_note, foreign_name, 
+    internal_name, time, difficulty, target, purpose, product_intruduce, product_price, 
+    descUrl, category, producttype_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from solutions_zd
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from solutions_zd
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.zhiding.norm.entity.Solutions">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into solutions_zd (solutions_type, solutions_name, solutions_name_en, 
+      jump_url, is_del, updateLogs, 
+      description, old_temp_id, stauts, 
+      product_code, Product_code_note, foreign_name, 
+      internal_name, time, difficulty, 
+      target, purpose, product_intruduce, 
+      product_price, descUrl, category, 
+      producttype_id)
+    values (#{solutionsType,jdbcType=BIGINT}, #{solutionsName,jdbcType=VARCHAR}, #{solutionsNameEn,jdbcType=VARCHAR}, 
+      #{jumpUrl,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}, #{updatelogs,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{oldTempId,jdbcType=BIGINT}, #{stauts,jdbcType=INTEGER}, 
+      #{productCode,jdbcType=VARCHAR}, #{productCodeNote,jdbcType=VARCHAR}, #{foreignName,jdbcType=VARCHAR}, 
+      #{internalName,jdbcType=VARCHAR}, #{time,jdbcType=INTEGER}, #{difficulty,jdbcType=VARCHAR}, 
+      #{target,jdbcType=VARCHAR}, #{purpose,jdbcType=VARCHAR}, #{productIntruduce,jdbcType=VARCHAR}, 
+      #{productPrice,jdbcType=DOUBLE}, #{descurl,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, 
+      #{producttypeId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.zhiding.norm.entity.Solutions">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into solutions_zd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="solutionsType != null">
+        solutions_type,
+      </if>
+      <if test="solutionsName != null">
+        solutions_name,
+      </if>
+      <if test="solutionsNameEn != null">
+        solutions_name_en,
+      </if>
+      <if test="jumpUrl != null">
+        jump_url,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="updatelogs != null">
+        updateLogs,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="oldTempId != null">
+        old_temp_id,
+      </if>
+      <if test="stauts != null">
+        stauts,
+      </if>
+      <if test="productCode != null">
+        product_code,
+      </if>
+      <if test="productCodeNote != null">
+        Product_code_note,
+      </if>
+      <if test="foreignName != null">
+        foreign_name,
+      </if>
+      <if test="internalName != null">
+        internal_name,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="difficulty != null">
+        difficulty,
+      </if>
+      <if test="target != null">
+        target,
+      </if>
+      <if test="purpose != null">
+        purpose,
+      </if>
+      <if test="productIntruduce != null">
+        product_intruduce,
+      </if>
+      <if test="productPrice != null">
+        product_price,
+      </if>
+      <if test="descurl != null">
+        descUrl,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="producttypeId != null">
+        producttype_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="solutionsType != null">
+        #{solutionsType,jdbcType=BIGINT},
+      </if>
+      <if test="solutionsName != null">
+        #{solutionsName,jdbcType=VARCHAR},
+      </if>
+      <if test="solutionsNameEn != null">
+        #{solutionsNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="jumpUrl != null">
+        #{jumpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="updatelogs != null">
+        #{updatelogs,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="oldTempId != null">
+        #{oldTempId,jdbcType=BIGINT},
+      </if>
+      <if test="stauts != null">
+        #{stauts,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productCodeNote != null">
+        #{productCodeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignName != null">
+        #{foreignName,jdbcType=VARCHAR},
+      </if>
+      <if test="internalName != null">
+        #{internalName,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=INTEGER},
+      </if>
+      <if test="difficulty != null">
+        #{difficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null">
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null">
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="productIntruduce != null">
+        #{productIntruduce,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="descurl != null">
+        #{descurl,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="producttypeId != null">
+        #{producttypeId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.zhiding.norm.entity.Solutions">
+    update solutions_zd
+    <set>
+      <if test="solutionsType != null">
+        solutions_type = #{solutionsType,jdbcType=BIGINT},
+      </if>
+      <if test="solutionsName != null">
+        solutions_name = #{solutionsName,jdbcType=VARCHAR},
+      </if>
+      <if test="solutionsNameEn != null">
+        solutions_name_en = #{solutionsNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="jumpUrl != null">
+        jump_url = #{jumpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="updatelogs != null">
+        updateLogs = #{updatelogs,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="oldTempId != null">
+        old_temp_id = #{oldTempId,jdbcType=BIGINT},
+      </if>
+      <if test="stauts != null">
+        stauts = #{stauts,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productCodeNote != null">
+        Product_code_note = #{productCodeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignName != null">
+        foreign_name = #{foreignName,jdbcType=VARCHAR},
+      </if>
+      <if test="internalName != null">
+        internal_name = #{internalName,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=INTEGER},
+      </if>
+      <if test="difficulty != null">
+        difficulty = #{difficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null">
+        target = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null">
+        purpose = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="productIntruduce != null">
+        product_intruduce = #{productIntruduce,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        product_price = #{productPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="descurl != null">
+        descUrl = #{descurl,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="producttypeId != null">
+        producttype_id = #{producttypeId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.zhiding.norm.entity.Solutions">
+    update solutions_zd
+    set solutions_type = #{solutionsType,jdbcType=BIGINT},
+      solutions_name = #{solutionsName,jdbcType=VARCHAR},
+      solutions_name_en = #{solutionsNameEn,jdbcType=VARCHAR},
+      jump_url = #{jumpUrl,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      updateLogs = #{updatelogs,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      old_temp_id = #{oldTempId,jdbcType=BIGINT},
+      stauts = #{stauts,jdbcType=INTEGER},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      Product_code_note = #{productCodeNote,jdbcType=VARCHAR},
+      foreign_name = #{foreignName,jdbcType=VARCHAR},
+      internal_name = #{internalName,jdbcType=VARCHAR},
+      time = #{time,jdbcType=INTEGER},
+      difficulty = #{difficulty,jdbcType=VARCHAR},
+      target = #{target,jdbcType=VARCHAR},
+      purpose = #{purpose,jdbcType=VARCHAR},
+      product_intruduce = #{productIntruduce,jdbcType=VARCHAR},
+      product_price = #{productPrice,jdbcType=DOUBLE},
+      descUrl = #{descurl,jdbcType=VARCHAR},
+      category = #{category,jdbcType=INTEGER},
+      producttype_id = #{producttypeId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

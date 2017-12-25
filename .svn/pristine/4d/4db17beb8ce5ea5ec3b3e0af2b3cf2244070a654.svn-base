@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zhiding.norm.mapper.ModuleRelationsMapper">
+  <resultMap id="BaseResultMap" type="cn.com.zhiding.norm.entity.ModuleRelations">
+    <id column="moduleRelation_id" jdbcType="BIGINT" property="modulerelationId" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="son_id" jdbcType="BIGINT" property="sonId" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="modifyDate" jdbcType="TIMESTAMP" property="modifydate" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="tool_id" jdbcType="BIGINT" property="toolId" />
+    <result column="solution_id" jdbcType="BIGINT" property="solutionId" />
+    <result column="orientation" jdbcType="INTEGER" property="orientation" />
+    <result column="calType" jdbcType="INTEGER" property="caltype" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    moduleRelation_id, parent_id, son_id, weight, createDate, modifyDate, status, tool_id, 
+    solution_id, orientation, calType
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_module_relations
+    where moduleRelation_id = #{modulerelationId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from s_module_relations
+    where moduleRelation_id = #{modulerelationId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.zhiding.norm.entity.ModuleRelations">
+    <selectKey keyProperty="modulerelationId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_module_relations (parent_id, son_id, weight, 
+      createDate, modifyDate, status, 
+      tool_id, solution_id, orientation, 
+      calType)
+    values (#{parentId,jdbcType=BIGINT}, #{sonId,jdbcType=BIGINT}, #{weight,jdbcType=DOUBLE}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{modifydate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
+      #{toolId,jdbcType=BIGINT}, #{solutionId,jdbcType=BIGINT}, #{orientation,jdbcType=INTEGER}, 
+      #{caltype,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.zhiding.norm.entity.ModuleRelations">
+    <selectKey keyProperty="modulerelationId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_module_relations
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="sonId != null">
+        son_id,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="modifydate != null">
+        modifyDate,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="toolId != null">
+        tool_id,
+      </if>
+      <if test="solutionId != null">
+        solution_id,
+      </if>
+      <if test="orientation != null">
+        orientation,
+      </if>
+      <if test="caltype != null">
+        calType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="sonId != null">
+        #{sonId,jdbcType=BIGINT},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null">
+        #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="toolId != null">
+        #{toolId,jdbcType=BIGINT},
+      </if>
+      <if test="solutionId != null">
+        #{solutionId,jdbcType=BIGINT},
+      </if>
+      <if test="orientation != null">
+        #{orientation,jdbcType=INTEGER},
+      </if>
+      <if test="caltype != null">
+        #{caltype,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.zhiding.norm.entity.ModuleRelations">
+    update s_module_relations
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="sonId != null">
+        son_id = #{sonId,jdbcType=BIGINT},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null">
+        modifyDate = #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="toolId != null">
+        tool_id = #{toolId,jdbcType=BIGINT},
+      </if>
+      <if test="solutionId != null">
+        solution_id = #{solutionId,jdbcType=BIGINT},
+      </if>
+      <if test="orientation != null">
+        orientation = #{orientation,jdbcType=INTEGER},
+      </if>
+      <if test="caltype != null">
+        calType = #{caltype,jdbcType=INTEGER},
+      </if>
+    </set>
+    where moduleRelation_id = #{modulerelationId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.zhiding.norm.entity.ModuleRelations">
+    update s_module_relations
+    set parent_id = #{parentId,jdbcType=BIGINT},
+      son_id = #{sonId,jdbcType=BIGINT},
+      weight = #{weight,jdbcType=DOUBLE},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      modifyDate = #{modifydate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      tool_id = #{toolId,jdbcType=BIGINT},
+      solution_id = #{solutionId,jdbcType=BIGINT},
+      orientation = #{orientation,jdbcType=INTEGER},
+      calType = #{caltype,jdbcType=INTEGER}
+    where moduleRelation_id = #{modulerelationId,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 根据上级维度id查询低阶维度id -->
+  <select id="querySonByParent"  resultMap="BaseResultMap">
+  	SELECT son_id,weight
+  	FROM s_module_relations 
+	WHERE parent_id = #{0}
+	AND tool_id = #{1} 
+	AND status = 0
+  </select>
+  <!-- 查询当前子工具的权重 -->
+  <select id="queryWeight" resultType="java.lang.Double">	
+	SELECT weight FROM s_module_relations 
+	WHERE parent_id = #{0} 
+	AND son_id = #{1} 
+	AND tool_id = #{2} 
+	AND status = 0
+  </select>
+</mapper>

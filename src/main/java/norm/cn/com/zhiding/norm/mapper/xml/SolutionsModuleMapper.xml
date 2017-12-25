@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.zhiding.norm.mapper.SolutionsModuleMapper">
+  <resultMap id="BaseResultMap" type="cn.com.zhiding.norm.entity.SolutionsModule">
+    <id column="sm_id" jdbcType="BIGINT" property="smId" />
+    <result column="module_id" jdbcType="BIGINT" property="moduleId" />
+    <result column="solution_id" jdbcType="BIGINT" property="solutionId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sm_id, module_id, solution_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_solution_module
+    where sm_id = #{smId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from s_solution_module
+    where sm_id = #{smId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.com.zhiding.norm.entity.SolutionsModule">
+    <selectKey keyProperty="smId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_solution_module (module_id, solution_id)
+    values (#{moduleId,jdbcType=BIGINT}, #{solutionId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.zhiding.norm.entity.SolutionsModule">
+    <selectKey keyProperty="smId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_solution_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        module_id,
+      </if>
+      <if test="solutionId != null">
+        solution_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        #{moduleId,jdbcType=BIGINT},
+      </if>
+      <if test="solutionId != null">
+        #{solutionId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.zhiding.norm.entity.SolutionsModule">
+    update s_solution_module
+    <set>
+      <if test="moduleId != null">
+        module_id = #{moduleId,jdbcType=BIGINT},
+      </if>
+      <if test="solutionId != null">
+        solution_id = #{solutionId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where sm_id = #{smId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.zhiding.norm.entity.SolutionsModule">
+    update s_solution_module
+    set module_id = #{moduleId,jdbcType=BIGINT},
+      solution_id = #{solutionId,jdbcType=BIGINT}
+    where sm_id = #{smId,jdbcType=BIGINT}
+  </update>
+</mapper>
